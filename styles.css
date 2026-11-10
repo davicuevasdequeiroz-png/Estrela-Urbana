@@ -1,0 +1,1215 @@
+/* ==========================================================================
+   PROJETO CIÊNCIA VIVA — GRUPO ESTRELA URBANA
+   Layout & Identidade Visual inspirados fielmente na referência editorial
+   ========================================================================== */
+
+:root {
+  --bg-black: #0b0d0c;
+  --bg-slate: #20242b;
+  --bg-slate-recessed: #12151a;
+  --bg-quote-card: #232629;
+  --bg-light-frame: #f3f4f6;
+  --bg-white: #ffffff;
+
+  --green-primary: #3b8748;
+  --green-bright: #4caf50;
+  --green-quote: #48b862;
+  --green-hover: #2f6f3a;
+
+  --text-dark: #23272b;
+  --text-body: #5c646d;
+  --text-muted: #8c959f;
+  --text-light: #e5e7eb;
+  --text-slate-body: #cfd6de;
+
+  --font-sans: 'Source Sans 3', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-brand: 'Montserrat', 'Inter', sans-serif;
+
+  --container-max: 980px;
+  --container-wide: 1120px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  font-family: var(--font-sans);
+  color: var(--text-body);
+  background-color: var(--bg-white);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.container-nav {
+  width: 100%;
+  max-width: var(--container-wide);
+  margin: 0 auto;
+  padding: 0 28px;
+}
+
+/* ==========================================================================
+   1. HEADER / TOP NAVBAR
+   ========================================================================== */
+.site-header {
+  background-color: var(--bg-black);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.header-inner {
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+/* Brand Lockup (Estrela Urbana) */
+.brand-lockup {
+  display: inline-flex;
+  align-items: center;
+  gap: 11px;
+  text-decoration: none;
+}
+
+.brand-symbol {
+  width: 34px;
+  height: 34px;
+  flex-shrink: 0;
+}
+
+.brand-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1;
+}
+
+.brand-title {
+  font-family: var(--font-brand);
+  font-size: 15.5px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  color: #e9efe9;
+  text-transform: uppercase;
+}
+
+.brand-title span {
+  color: #67b25c;
+}
+
+.brand-subtitle {
+  font-size: 7.5px;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  color: #8a948d;
+  text-transform: uppercase;
+  margin-top: 3.5px;
+}
+
+/* Navigation */
+.main-nav {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+
+.main-nav a {
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  color: #d8dde0;
+  padding: 6px 0;
+  position: relative;
+}
+
+.main-nav a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  height: 1.5px;
+  background-color: var(--green-bright);
+  transition: width 0.22s ease;
+}
+
+.main-nav a:hover {
+  color: #ffffff;
+}
+
+.main-nav a:hover::after {
+  width: 100%;
+}
+
+.mobile-menu-btn {
+  display: none;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  width: 38px;
+  height: 38px;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ==========================================================================
+   2. HERO SECTION (AERIAL TOP PHOTO + SPLIT DARK BAND)
+   ========================================================================== */
+.hero-section {
+  background-color: var(--bg-black);
+}
+
+.hero-aerial-wrap {
+  width: 100%;
+  height: clamp(290px, 37vw, 455px);
+  overflow: hidden;
+  position: relative;
+  background-color: #2f4318;
+}
+
+.hero-aerial-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 53% 56%;
+  transform: scale(1.26);
+  filter: saturate(1.06) contrast(1.02) brightness(0.92);
+}
+
+/* Subtle bottom vignette to blend organically into the dark band */
+.hero-aerial-wrap::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(11, 13, 12, 0.14) 0%,
+    rgba(11, 13, 12, 0) 22%,
+    rgba(11, 13, 12, 0) 82%,
+    rgba(11, 13, 12, 0.32) 100%
+  );
+  pointer-events: none;
+}
+
+.hero-band {
+  background-color: var(--bg-black);
+  padding: 62px 0 70px;
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 60px;
+  align-items: start;
+}
+
+.hero-eyebrow {
+  font-size: 9.5px;
+  font-weight: 600;
+  letter-spacing: 0.17em;
+  text-transform: uppercase;
+  color: #8f9893;
+  margin-bottom: 14px;
+}
+
+.hero-headline {
+  font-size: clamp(28px, 3.3vw, 39px);
+  font-weight: 700;
+  line-height: 1.18;
+  letter-spacing: -0.015em;
+  color: #ffffff;
+}
+
+.hero-right {
+  padding-top: 24px;
+}
+
+.hero-description {
+  font-size: 13.5px;
+  line-height: 1.68;
+  color: #cfd5d9;
+  margin-bottom: 24px;
+}
+
+/* Outlined Buttons */
+.btn-outline-green {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 26px;
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  color: #e5e7eb;
+  background: transparent;
+  border: 1px solid var(--green-primary);
+  transition: all 0.22s ease;
+}
+
+.btn-outline-green:hover {
+  background-color: var(--green-primary);
+  color: #ffffff;
+}
+
+.btn-outline-green--accent {
+  color: #52b765;
+  border-color: rgba(82, 183, 101, 0.65);
+}
+
+.btn-outline-green--accent:hover {
+  background-color: var(--green-primary);
+  border-color: var(--green-primary);
+  color: #ffffff;
+}
+
+.btn-outline-dark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 26px;
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  color: #e5e7eb;
+  background: transparent;
+  border: 1px solid #353b45;
+  transition: all 0.22s ease;
+}
+
+.btn-outline-dark:hover {
+  border-color: var(--green-bright);
+  color: #ffffff;
+  background-color: rgba(59, 135, 72, 0.18);
+}
+
+/* ==========================================================================
+   3. THREE BADGES STRIP (CIÊNCIA VIVA • ESTRELA URBANA • ESCOLA)
+   ========================================================================== */
+.badges-strip {
+  background-color: var(--bg-white);
+  padding: 48px 0 32px;
+}
+
+.badges-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 54px;
+  flex-wrap: wrap;
+}
+
+/* Badge 1: Dark Serif Card (parallels "Private Label" card) */
+.badge-ciencia-viva {
+  width: 144px;
+  height: 52px;
+  background-color: #161716;
+  border: 1px solid #2b2923;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 14px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+  transition: transform 0.22s ease;
+}
+
+.badge-ciencia-viva:hover,
+.badge-ciclo:hover,
+.badge-escola:hover {
+  transform: translateY(-2px);
+}
+
+.badge-cv-title {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-style: italic;
+  font-size: 15px;
+  color: #dec48e;
+  letter-spacing: 0.03em;
+  line-height: 1.1;
+}
+
+.badge-cv-sub {
+  font-size: 7px;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: #9e9684;
+  margin-top: 3px;
+}
+
+/* Badge 2: Botanical Cycle Logo on White (parallels "SLRF" green botanical emblem) */
+.badge-ciclo {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 4px 8px;
+  transition: transform 0.22s ease;
+}
+
+.badge-ciclo img {
+  width: 56px;
+  height: 56px;
+  object-fit: contain;
+}
+
+.badge-ciclo-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.08;
+}
+
+.badge-ciclo-name {
+  font-family: var(--font-brand);
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  color: #2f5b29;
+}
+
+.badge-ciclo-tag {
+  font-size: 8px;
+  font-weight: 600;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: #6b4423;
+  margin-top: 2px;
+}
+
+/* Badge 3: Terracotta/Burgundy School Crest Stamp (parallels crimson crest stamp) */
+.badge-escola {
+  width: 114px;
+  height: 66px;
+  background-color: #8b2d3b;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px;
+  box-shadow: 0 4px 14px rgba(139, 45, 59, 0.16);
+  transition: transform 0.22s ease;
+}
+
+.badge-escola::before {
+  content: '';
+  position: absolute;
+  inset: 4px;
+  border: 1px solid rgba(243, 233, 210, 0.28);
+  pointer-events: none;
+}
+
+.badge-escola img {
+  height: 52px;
+  width: auto;
+  object-fit: contain;
+  mix-blend-mode: screen;
+}
+
+/* ==========================================================================
+   4. VALUE / PILLARS SECTION ("Valorização e Sustentabilidade")
+   ========================================================================== */
+.pillars-section {
+  background-color: var(--bg-white);
+  padding: 52px 0 68px;
+}
+
+.section-header-center {
+  text-align: center;
+  max-width: 640px;
+  margin: 0 auto 48px;
+}
+
+.section-top-rule {
+  width: 38px;
+  height: 1.5px;
+  background-color: #cbd5e1;
+  margin: 0 auto 18px;
+}
+
+.section-title {
+  font-size: clamp(26px, 2.8vw, 33px);
+  font-weight: 700;
+  color: var(--text-dark);
+  letter-spacing: -0.015em;
+  line-height: 1.24;
+}
+
+.section-intro {
+  margin-top: 16px;
+  font-size: 13.5px;
+  line-height: 1.72;
+  color: var(--text-body);
+}
+
+/* 3-Column Cards */
+.pillars-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+}
+
+.pillar-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.pillar-img-wrap {
+  width: 100%;
+  aspect-ratio: 16 / 10.2;
+  overflow: hidden;
+  background-color: #eef1ee;
+}
+
+.pillar-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.45s ease;
+}
+
+.pillar-card:hover .pillar-img-wrap img {
+  transform: scale(1.04);
+}
+
+.pillar-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin: 20px 0 10px;
+  letter-spacing: -0.01em;
+}
+
+.pillar-accent-bar {
+  width: 22px;
+  height: 2px;
+  background-color: var(--green-primary);
+  margin-bottom: 14px;
+}
+
+.pillar-text {
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--text-body);
+}
+
+.pillar-cite {
+  font-style: italic;
+  color: #485058;
+}
+
+/* ==========================================================================
+   5. SPLIT SHOWCASE ("Milho — Zea mays L." + Studio Bowls Flat-Lay)
+   ========================================================================== */
+.crop-showcase-section {
+  background-color: var(--bg-white);
+  padding: 24px 0 88px;
+}
+
+.crop-showcase-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: stretch;
+}
+
+.crop-dark-panel {
+  background-color: var(--bg-slate);
+  padding: 64px 54px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.crop-title {
+  font-size: clamp(27px, 2.8vw, 34px);
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+.crop-title em {
+  font-style: italic;
+  font-weight: 600;
+  color: #dce4dc;
+  font-size: 0.88em;
+}
+
+.crop-description {
+  margin: 18px 0 28px;
+  font-size: 13.5px;
+  line-height: 1.72;
+  color: var(--text-slate-body);
+}
+
+.crop-partnerships {
+  margin-top: 32px;
+}
+
+.crop-partnerships-label {
+  display: block;
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-bottom: 7px;
+}
+
+.crop-partnerships-links {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.crop-link {
+  font-size: 12px;
+  font-weight: 700;
+  color: #ffffff;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: none;
+  border: none;
+  padding: 0;
+}
+
+.crop-link:hover {
+  color: #67c278;
+}
+
+/* Right Studio Visual on Seamless White */
+.crop-studio-panel {
+  background-color: var(--bg-white);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 20px 0 0 24px;
+  overflow: hidden;
+  position: relative;
+}
+
+.crop-studio-panel::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  box-shadow: inset 0 0 28px 18px #ffffff;
+}
+
+.crop-studio-img {
+  width: 100%;
+  max-width: 470px;
+  height: auto;
+  object-fit: contain;
+  mix-blend-mode: multiply;
+  filter: contrast(1.06) brightness(1.04);
+}
+
+/* ==========================================================================
+   6. FRAMED DARK SLATE CONTACT / COLLABORATION BAND
+   ========================================================================== */
+.contact-band-outer {
+  background-color: var(--bg-light-frame);
+  padding: 50px 34px;
+}
+
+.contact-band-slate {
+  max-width: 1220px;
+  margin: 0 auto;
+  background-color: var(--bg-slate);
+  padding: 66px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.contact-recessed-box {
+  background-color: var(--bg-slate-recessed);
+  width: 100%;
+  max-width: 455px;
+  padding: 44px 46px;
+  text-align: center;
+  box-shadow: 0 20px 44px rgba(0, 0, 0, 0.26);
+}
+
+.contact-eyebrow {
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.19em;
+  text-transform: uppercase;
+  color: #8f98a3;
+}
+
+.contact-heading {
+  font-size: clamp(23px, 2.4vw, 28px);
+  font-weight: 700;
+  line-height: 1.26;
+  color: #ffffff;
+  margin: 12px 0 16px;
+}
+
+.contact-copy {
+  font-size: 12.5px;
+  line-height: 1.68;
+  color: #adb5bf;
+  margin-bottom: 24px;
+}
+
+/* ==========================================================================
+   7. BOTTOM SHOWCASE ("Pesquisa Aplicada à Agricultura Sustentável")
+   ========================================================================== */
+.sustainable-section {
+  background-color: var(--bg-white);
+  padding: 76px 0 112px;
+}
+
+.sustainable-stage {
+  max-width: 860px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.sustainable-photo-wrap {
+  width: 100%;
+  height: clamp(250px, 32vw, 355px);
+  overflow: hidden;
+  background-color: #1a2416;
+}
+
+.sustainable-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 68%;
+}
+
+.sustainable-controls {
+  margin-top: 20px;
+  display: inline-flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.slider-arrow {
+  background: transparent;
+  border: none;
+  color: #6b7280;
+  padding: 6px 4px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.slider-arrow:hover {
+  color: var(--text-dark);
+}
+
+.slider-arrow--prev:hover {
+  transform: translateX(-2px);
+}
+
+.slider-arrow--next:hover {
+  transform: translateX(2px);
+}
+
+/* Overlapping Dark Quote Card */
+.quote-overlay-card {
+  position: absolute;
+  right: 34px;
+  bottom: -42px;
+  width: 410px;
+  background-color: var(--bg-quote-card);
+  padding: 28px 30px 26px;
+  box-shadow: 0 16px 38px rgba(0, 0, 0, 0.22);
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.quote-avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+  border: 1.5px solid rgba(255, 255, 255, 0.14);
+  background-color: #2b302c;
+}
+
+.quote-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.quote-body {
+  flex: 1;
+  position: relative;
+  padding-right: 12px;
+}
+
+.quote-text {
+  font-size: 13px;
+  line-height: 1.56;
+  font-weight: 500;
+  color: var(--green-quote);
+  transition: opacity 0.22s ease;
+}
+
+.quote-author {
+  margin-top: 12px;
+  font-size: 11.5px;
+  color: #9ca3af;
+  transition: opacity 0.22s ease;
+}
+
+.quote-mark {
+  position: absolute;
+  right: -6px;
+  bottom: -14px;
+  font-family: Georgia, serif;
+  font-size: 46px;
+  line-height: 1;
+  color: rgba(255, 255, 255, 0.12);
+  pointer-events: none;
+  user-select: none;
+}
+
+/* ==========================================================================
+   8. FOOTER
+   ========================================================================== */
+.site-footer {
+  background-color: var(--bg-black);
+  color: #9ca3af;
+  padding: 64px 0 34px;
+}
+
+.footer-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 32px;
+}
+
+.footer-info {
+  margin-top: 22px;
+  font-size: 11.5px;
+  line-height: 1.72;
+  color: #9ca3af;
+}
+
+.footer-contacts {
+  margin-top: 16px;
+  font-size: 11.5px;
+  line-height: 1.75;
+  color: #9ca3af;
+}
+
+.footer-contacts span {
+  color: #6b7280;
+  margin: 0 6px;
+}
+
+.footer-contacts a:hover {
+  color: #ffffff;
+}
+
+.footer-socials {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.social-square {
+  width: 22px;
+  height: 22px;
+  background-color: #7c838a;
+  color: var(--bg-black);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 2px;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.social-square:hover {
+  background-color: #ffffff;
+  transform: translateY(-1px);
+}
+
+.footer-divider {
+  border: 0;
+  border-top: 1px solid #1b201d;
+  margin: 30px 0 20px;
+}
+
+.footer-bottom {
+  font-size: 10.5px;
+  color: #6b7280;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  align-items: center;
+}
+
+.footer-bottom a:hover {
+  color: #cfd6de;
+}
+
+/* Floating Bottom-Right Green Badge (matches reference corner action widget) */
+.floating-action-btn {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  width: 32px;
+  height: 32px;
+  background-color: var(--green-bright);
+  color: #ffffff;
+  border: none;
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.28);
+  z-index: 90;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.floating-action-btn:hover {
+  background-color: var(--green-hover);
+  transform: translateY(-2px);
+}
+
+/* ==========================================================================
+   9. INTERACTIVE SCIENTIFIC MODAL (DBC 5×4 & CONTACT)
+   ========================================================================== */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(11, 13, 12, 0.78);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  z-index: 200;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.25s ease, visibility 0.25s ease;
+}
+
+.modal-backdrop.is-open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal-dialog {
+  background-color: #16191e;
+  color: #e5e7eb;
+  width: 100%;
+  max-width: 740px;
+  max-height: 88vh;
+  overflow-y: auto;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 36px 40px;
+  position: relative;
+  box-shadow: 0 28px 64px rgba(0, 0, 0, 0.5);
+  transform: translateY(12px);
+  transition: transform 0.25s ease;
+}
+
+.modal-backdrop.is-open .modal-dialog {
+  transform: translateY(0);
+}
+
+.modal-close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 34px;
+  height: 34px;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  color: #cfd6de;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-close:hover {
+  border-color: var(--green-bright);
+  color: #ffffff;
+}
+
+.modal-eyebrow {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--green-quote);
+  margin-bottom: 8px;
+}
+
+.modal-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 12px;
+}
+
+.modal-desc {
+  font-size: 13.5px;
+  color: #b8c1cc;
+  line-height: 1.68;
+  margin-bottom: 24px;
+}
+
+/* Interactive Tabs inside Modal */
+.dbc-tabs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.dbc-tab {
+  padding: 8px 16px;
+  font-size: 12px;
+  font-weight: 600;
+  background-color: #20242b;
+  border: 1px solid #2e343e;
+  color: #cfd6de;
+}
+
+.dbc-tab.is-active {
+  background-color: rgba(59, 135, 72, 0.2);
+  border-color: var(--green-bright);
+  color: #ffffff;
+}
+
+/* 5x4 Randomized Block Grid Visualization */
+.dbc-grid-wrapper {
+  background-color: #101216;
+  border: 1px solid #262b33;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.dbc-block-row {
+  display: grid;
+  grid-template-columns: 78px repeat(5, 1fr);
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.dbc-block-row:last-child {
+  margin-bottom: 0;
+}
+
+.dbc-block-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #8f98a3;
+}
+
+.dbc-plot {
+  padding: 10px 6px;
+  text-align: center;
+  font-size: 11.5px;
+  font-weight: 700;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: transform 0.15s ease;
+}
+
+.dbc-plot:hover {
+  transform: scale(1.04);
+}
+
+.dbc-plot small {
+  display: block;
+  font-size: 9.5px;
+  font-weight: 400;
+  opacity: 0.82;
+  margin-top: 2px;
+}
+
+.plot-t0 { background-color: #3d3427; color: #f3e9d2; }
+.plot-t1 { background-color: #263d29; color: #c7eccb; }
+.plot-t2 { background-color: #1f4d28; color: #dcfce7; }
+.plot-t3 { background-color: #193822; color: #86efac; border-color: rgba(74, 222, 128, 0.35); }
+.plot-t4 { background-color: #181a1b; color: #f4f4f5; border-color: rgba(234, 179, 8, 0.4); }
+
+.dbc-mode-note {
+  font-size: 12.5px;
+  color: #cfd6de;
+  background-color: #20242b;
+  border-left: 3px solid var(--green-bright);
+  padding: 12px 16px;
+}
+
+/* Contact Form inside Contact Modal */
+.contact-form-grid {
+  display: grid;
+  gap: 14px;
+}
+
+.form-field label {
+  display: block;
+  font-size: 11.5px;
+  font-weight: 600;
+  color: #cfd6de;
+  margin-bottom: 5px;
+}
+
+.form-field input,
+.form-field textarea {
+  width: 100%;
+  padding: 10px 13px;
+  background-color: #101216;
+  border: 1px solid #2c323c;
+  color: #ffffff;
+  font-family: inherit;
+  font-size: 13px;
+}
+
+.form-field input:focus,
+.form-field textarea:focus {
+  outline: none;
+  border-color: var(--green-bright);
+}
+
+.form-feedback {
+  font-size: 12.5px;
+  color: var(--green-quote);
+  margin-top: 8px;
+  min-height: 18px;
+}
+
+/* ==========================================================================
+   10. RESPONSIVE BREAKPOINTS
+   ========================================================================== */
+@media (max-width: 900px) {
+  .main-nav {
+    position: absolute;
+    top: 70px;
+    left: 0;
+    right: 0;
+    background-color: #0e1110;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 18px 28px 24px;
+    gap: 14px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    display: none;
+  }
+
+  .main-nav.is-open {
+    display: flex;
+  }
+
+  .mobile-menu-btn {
+    display: inline-flex;
+  }
+
+  .hero-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .hero-right {
+    padding-top: 0;
+  }
+
+  .pillars-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .crop-showcase-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .crop-dark-panel {
+    padding: 48px 32px;
+  }
+
+  .crop-studio-panel {
+    padding: 32px 16px 0;
+  }
+
+  .quote-overlay-card {
+    position: relative;
+    right: auto;
+    bottom: auto;
+    width: 100%;
+    margin-top: 18px;
+  }
+
+  .sustainable-section {
+    padding-bottom: 72px;
+  }
+}
+
+@media (max-width: 600px) {
+  .badges-row {
+    gap: 28px;
+  }
+
+  .contact-band-outer {
+    padding: 32px 16px;
+  }
+
+  .contact-recessed-box {
+    padding: 32px 24px;
+  }
+
+  .dbc-block-row {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-top {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Estrela Urbana • Ciência Viva — Potencial do Biochar em Plantações de Milho</title>
+  <meta
+    name="description"
+    content="Projeto Ciência Viva — Grupo Estrela Urbana: Pesquisa sobre o potencial do uso do biocarvão (biochar) obtido através da pirólise de podas urbanas como condicionador do solo na cultura de milho (Zea mays L.)."
+  />
+  <link rel="icon" type="image/svg+xml" href="logo_final/estrela_urbana_simbolo_fundo_escuro.svg" />
+
+  <!-- Tipografia Editorial & Institucional -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@700;800&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap"
+    rel="stylesheet"
+  />
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body id="topo">
+
+  <!-- =====================================================================
+       1. CABEÇALHO ESCURO (NAVBAR)
+       ===================================================================== -->
+  <header class="site-header">
+    <div class="container-nav header-inner">
+      <a href="#topo" class="brand-lockup" aria-label="Estrela Urbana — Projeto Ciência Viva">
+        <img
+          src="logo_final/estrela_urbana_simbolo_fundo_escuro.svg"
+          alt="Símbolo Estrela Urbana"
+          class="brand-symbol"
+        />
+        <div class="brand-text">
+          <span class="brand-title">ESTRELA <span>URBANA</span></span>
+          <span class="brand-subtitle">Projeto Ciência Viva</span>
+        </div>
+      </a>
+
+      <button
+        class="mobile-menu-btn"
+        id="mobileMenuBtn"
+        type="button"
+        aria-label="Abrir menu de navegação"
+        aria-expanded="false"
+      >
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="3" y1="6" x2="21" y2="6" />
+          <line x1="3" y1="12" x2="21" y2="12" />
+          <line x1="3" y1="18" x2="21" y2="18" />
+        </svg>
+      </button>
+
+      <nav class="main-nav" id="mainNav" aria-label="Navegação principal">
+        <a href="#valorizacao">Problemática</a>
+        <a href="#pilares">Pirólise &amp; Biochar</a>
+        <a href="#cultura-milho">Cultura do Milho</a>
+        <a href="#pesquisa-aberta">Lacuna Científica</a>
+        <a href="#contato" data-open-modal="contact">Contato</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- ===================================================================
+         2. HERO SECTION (VISTA AÉREA DE PARCELAS + FAIXA ESCURA BIPARTIDA)
+         =================================================================== -->
+    <section class="hero-section" aria-label="Apresentação da pesquisa">
+      <div class="hero-aerial-wrap">
+        <img
+          src="assets/images/hero-aerial-plots.jpg"
+          alt="Vista aérea ortogonal de faixas agrícolas experimentais de milho, biomassa de podas e solo condicionado com biocarvão"
+          class="hero-aerial-img"
+        />
+      </div>
+
+      <div class="hero-band">
+        <div class="container hero-grid">
+          <div class="hero-left">
+            <p class="hero-eyebrow">Projeto Ciência Viva • Grupo Estrela Urbana</p>
+            <h1 class="hero-headline">
+              Potencial do biochar de podas urbanas em plantações de milho.
+            </h1>
+          </div>
+
+          <div class="hero-right">
+            <p class="hero-description">
+              Da valorização sustentável de resíduos arbóreos urbanos ao condicionamento do solo via pirólise, investigamos o uso do biocarvão incorporado e a lanço (DBC 5×4) para potencializar atributos agronômicos na cultura de <em>Zea mays L.</em>
+            </p>
+            <a href="#valorizacao" class="btn-outline-green">Saiba Mais</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         3. FAIXA DE INSÍGNIAS DO PROJETO E INSTITUIÇÃO
+         =================================================================== -->
+    <section class="badges-strip" aria-label="Identidade institucional do projeto">
+      <div class="container badges-row">
+        <!-- Insígnia 1: Projeto Ciência Viva -->
+        <a href="#valorizacao" class="badge-ciencia-viva" title="Projeto Ciência Viva — Iniciação Científica">
+          <span class="badge-cv-title">Ciência Viva</span>
+          <span class="badge-cv-sub">Pesquisa Agronômica</span>
+        </a>
+
+        <!-- Insígnia 2: Emblema Biociclo Estrela Urbana -->
+        <button
+          type="button"
+          class="badge-ciclo"
+          data-open-modal="dbc"
+          style="background:none;border:none;text-align:left;"
+          title="Grupo Estrela Urbana — Ciclo Poda, Pirólise, Biochar e Milho"
+        >
+          <img
+            src="assets/images/logo-ciclo-white.svg"
+            alt="Logo Biociclo Estrela Urbana"
+          />
+          <div class="badge-ciclo-text">
+            <span class="badge-ciclo-name">ESTRELA URBANA</span>
+            <span class="badge-ciclo-tag">Ciclo Biochar &bull; Milho</span>
+          </div>
+        </button>
+
+        <!-- Insígnia 3: Escola Estadual Frei Egídio Parisi -->
+        <a href="#rodape" class="badge-escola" title="E.E. Frei Egídio Parisi">
+          <img
+            src="camisa/logo_escola_bege.png"
+            alt="Brasão E.E. Frei Egídio Parisi"
+          />
+        </a>
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         4. SEÇÃO CENTRAL DE VALORIZAÇÃO + 3 COLUNAS DE PESQUISA
+         =================================================================== -->
+    <section class="pillars-section" id="valorizacao">
+      <div class="container">
+        <div class="section-header-center">
+          <div class="section-top-rule"></div>
+          <h2 class="section-title">Valorização das Podas Urbanas</h2>
+          <p class="section-intro">
+            Atualmente, a pauta ambiental compreende a valorização das podas urbanas como uma necessidade que excede o valor estético. A discussão acerca do destino dos resíduos gerados tem preocupado a população, visto que o descarte inadequado contribui significativamente para a poluição ambiental, sendo um problema de sustentabilidade.
+          </p>
+        </div>
+
+        <div class="pillars-grid" id="pilares">
+          <!-- Coluna 1 -->
+          <article class="pillar-card">
+            <div class="pillar-img-wrap">
+              <img
+                src="assets/images/card-podas-urbanas.jpg"
+                alt="Manejo sustentável de ramos e resíduos orgânicos de podas arbóreas sob luz solar"
+                loading="lazy"
+              />
+            </div>
+            <h3 class="pillar-title">Impactos do Descarte</h3>
+            <div class="pillar-accent-bar"></div>
+            <p class="pillar-text">
+              Dentre as consequências associadas ao descarte destes resíduos orgânicos estão aspectos ambientais e econômicos, podendo propiciar o desenvolvimento de vetores patogênicos; aumento no custo de limpeza e manutenção de áreas públicas e privadas; poluição visual e corroborar com o aumento de riscos de enchentes; além de prejudicar a ciclagem de nutrientes através da compostagem e outras práticas sustentáveis.
+            </p>
+          </article>
+
+          <!-- Coluna 2 -->
+          <article class="pillar-card">
+            <div class="pillar-img-wrap">
+              <img
+                src="assets/images/card-pirolise-biochar.jpg"
+                alt="Contraste entre biomassa vegetal de podas urbanas e biocarvão obtido por pirólise"
+                loading="lazy"
+              />
+            </div>
+            <h3 class="pillar-title">Pirólise e Biocarvão</h3>
+            <div class="pillar-accent-bar"></div>
+            <p class="pillar-text">
+              O biocarvão (<em>biochar</em>) surge como uma alternativa promissora para a gestão de resíduos: um produto obtido da biomassa vegetal ou animal submetida ao processo de decomposição, degradação ou alteração de sua composição pela ação de calor, obtido através da pirólise (queima sob altas temperaturas em baixa demanda de oxigênio). A pirólise atua como agente transformador, convertendo moléculas complexas (como a lignina e a celulose) em compostos mais estáveis e de alto valor agregado (como o biochar e outros compostos em análise).
+            </p>
+          </article>
+
+          <!-- Coluna 3 -->
+          <article class="pillar-card">
+            <div class="pillar-img-wrap">
+              <img
+                src="assets/images/card-solo-sustentavel.jpg"
+                alt="Vista aérea de áreas agrícolas sustentáveis com solo estruturado e retenção hídrica"
+                loading="lazy"
+              />
+            </div>
+            <h3 class="pillar-title">Potenciais no Solo</h3>
+            <div class="pillar-accent-bar"></div>
+            <p class="pillar-text">
+              Os potenciais do biochar estão associados ao aprisionamento de carbono no solo, podendo ser utilizado como condicionador presente na estrutura sólida, agente filtrante, maior retenção de água no solo e até associado à redução de alguns agentes patogênicos <span class="pillar-cite">(Chaves; Fernandes, 2024; Machado, 2024)</span>. Apesar do seu potencial documentado em alguns trabalhos, ainda há poucos estudos que abordem concentrações e potenciais de utilização do biocarvão a longo prazo e em diferentes culturas, principalmente em relação aos resíduos de podas urbanas.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         5. DESTAQUE BIPARTIDO: CULTURA DE MILHO (ZEA MAYS L.) + BIOCHAR
+         =================================================================== -->
+    <section class="crop-showcase-section" id="cultura-milho">
+      <div class="container">
+        <div class="crop-showcase-grid">
+          <div class="crop-dark-panel">
+            <h2 class="crop-title">Milho <em>(Zea mays L.)</em></h2>
+            <p class="crop-description">
+              Objetiva-se com esta pesquisa avaliar os potenciais de utilização do biocarvão obtido através de resíduos de podas urbanas como condicionador do solo incorporado e a lanço em um sistema de delineamento de blocos casualizados 5×4, com cinco tratamentos (quatro com o biocarvão e uma testemunha) em quatro blocos, para o beneficiamento da cultura de milho <em>Zea mays L.</em>, além de observações dos atributos agronômicos na cultura observada.
+            </p>
+
+            <button
+              type="button"
+              class="btn-outline-green btn-outline-green--accent"
+              data-open-modal="dbc"
+              data-dbc-mode="geral"
+            >
+              Ver Delineamento 5×4
+            </button>
+
+            <div class="crop-partnerships">
+              <span class="crop-partnerships-label">Modalidades de Manejo Experimental:</span>
+              <div class="crop-partnerships-links">
+                <button
+                  type="button"
+                  class="crop-link"
+                  data-open-modal="dbc"
+                  data-dbc-mode="incorporado"
+                >
+                  Solo Incorporado &rarr;
+                </button>
+                <button
+                  type="button"
+                  class="crop-link"
+                  data-open-modal="dbc"
+                  data-dbc-mode="lanco"
+                >
+                  Aplicação a Lanço &rarr;
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="crop-studio-panel">
+            <img
+              src="assets/images/milho-biochar-studio.jpg"
+              alt="Tigelas rústicas com grãos dourados de milho Zea mays L., fragmentos porosos de biocarvão e espiga de milho sobre fundo branco"
+              class="crop-studio-img"
+              loading="lazy"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         6. FAIXA EMOLDURADA ESCURA — LACUNA CIENTÍFICA & INFORMAÇÕES
+         =================================================================== -->
+    <section class="contact-band-outer" id="pesquisa-aberta">
+      <div class="contact-band-slate">
+        <div class="contact-recessed-box">
+          <p class="contact-eyebrow">Gestão de Pesquisas • Ciência Viva</p>
+          <h2 class="contact-heading">
+            Entre em contato para<br />mais informações
+          </h2>
+          <p class="contact-copy">
+            Em contrapartida ao entendimento sobre o processo da pirólise, este processo demonstra ser seguro, porém não há testes ou estudos ao uso específico da implementação deste movimento a podas urbanas mistas, necessitando de mais testes para sua garantia de eficiência como condicionador do solo — criando abertura para a gestão de pesquisas ao campo do biochar e suas propriedades.
+          </p>
+          <button
+            type="button"
+            class="btn-outline-dark"
+            data-open-modal="contact"
+          >
+            Fale Conosco
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         7. VITRINE INFERIOR — SUSTENTABILIDADE E CITAÇÕES DA PESQUISA
+         =================================================================== -->
+    <section class="sustainable-section" id="sustentabilidade">
+      <div class="container">
+        <div class="section-header-center">
+          <div class="section-top-rule"></div>
+          <h2 class="section-title">
+            Ciência Aplicada ao<br />Cultivo Sustentável
+          </h2>
+        </div>
+
+        <div class="sustainable-stage">
+          <div class="sustainable-photo-wrap">
+            <img
+              src="assets/images/milho-solo-biochar.jpg"
+              alt="Plântulas jovens de milho Zea mays L. crescendo em solo escuro enriquecido com biocarvão de podas urbanas"
+              class="sustainable-photo"
+              loading="lazy"
+            />
+          </div>
+
+          <!-- Controles Inferiores à Esquerda -->
+          <div class="sustainable-controls" aria-label="Navegação de destaques científicos">
+            <button
+              type="button"
+              class="slider-arrow slider-arrow--prev"
+              id="quotePrevBtn"
+              aria-label="Destaque anterior"
+            >
+              <svg width="20" height="12" viewBox="0 0 24 12" fill="none" stroke="currentColor" stroke-width="1.6">
+                <path d="M23 6H2M7 1L2 6L7 11" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </button>
+            <button
+              type="button"
+              class="slider-arrow slider-arrow--next"
+              id="quoteNextBtn"
+              aria-label="Próximo destaque"
+            >
+              <svg width="20" height="12" viewBox="0 0 24 12" fill="none" stroke="currentColor" stroke-width="1.6">
+                <path d="M1 6H22M17 1L22 6L17 11" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </button>
+          </div>
+
+          <!-- Card Escuro Sobreposto à Direita -->
+          <aside class="quote-overlay-card" aria-live="polite">
+            <div class="quote-avatar">
+              <img
+                src="logo_final/estrela_urbana_simbolo_fundo_escuro.svg"
+                alt="Emblema Grupo Estrela Urbana"
+              />
+            </div>
+            <div class="quote-body">
+              <p class="quote-text" id="quoteText">
+                “O potencial do biochar associa-se ao aprisionamento de carbono, retenção hídrica, filtragem do solo e redução de agentes patogênicos.”
+              </p>
+              <p class="quote-author" id="quoteAuthor">
+                Chaves; Fernandes (2024) &bull; Machado (2024)
+              </p>
+              <span class="quote-mark" aria-hidden="true">&rdquo;</span>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- =====================================================================
+       8. RODAPÉ ESCURO (FOOTER)
+       ===================================================================== -->
+  <footer class="site-footer" id="rodape">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-left">
+          <a href="#topo" class="brand-lockup" aria-label="Voltar ao topo — Estrela Urbana">
+            <img
+              src="logo_final/estrela_urbana_simbolo_fundo_escuro.svg"
+              alt="Símbolo Estrela Urbana"
+              class="brand-symbol"
+            />
+            <div class="brand-text">
+              <span class="brand-title">ESTRELA <span>URBANA</span></span>
+              <span class="brand-subtitle">Projeto Ciência Viva</span>
+            </div>
+          </a>
+
+          <div class="footer-info">
+            <p>Grupo de Pesquisa Estrela Urbana — Ciência Viva</p>
+            <p>E.E. Frei Egídio Parisi</p>
+            <p>Delineamento em Blocos Casualizados (DBC 5×4)</p>
+            <p>Pirólise de Podas Urbanas &bull; Cultura de Milho (<em>Zea mays L.</em>)</p>
+          </div>
+
+          <div class="footer-contacts" id="contato">
+            <p>
+              Pesquisa Científica <span>|</span>
+              <a href="#pesquisa-aberta" data-open-modal="dbc">Ensaio Experimental DBC 5×4</a>
+            </p>
+            <p>
+              Contato do Grupo <span>|</span>
+              <a href="#contato" data-open-modal="contact">estrelaurbana.cienciaviva@edu.br</a>
+            </p>
+          </div>
+        </div>
+
+        <div class="footer-socials" aria-label="Acesso rápido institucional">
+          <button
+            type="button"
+            class="social-square"
+            data-open-modal="dbc"
+            title="Ficha Metodológica DBC 5×4"
+            aria-label="Abrir Ficha Metodológica DBC 5×4"
+          >
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M3 3h8v8H3V3zm10 0h8v8h-8V3zM3 13h8v8H3v-8zm10 0h8v8h-8v-8z" />
+            </svg>
+          </button>
+          <button
+            type="button"
+            class="social-square"
+            data-open-modal="contact"
+            title="Contato Grupo Estrela Urbana"
+            aria-label="Abrir formulário de contato do Grupo Estrela Urbana"
+          >
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M20 4H4a2 2 0 00-2 2v12a2 2 0 002 2h16a2 2 0 002-2V6a2 2 0 00-2-2zm0 4.2l-8 5-8-5V6l8 5 8-5v2.2z" />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <hr class="footer-divider" />
+
+      <div class="footer-bottom">
+        <span>&copy; 2026 Grupo Estrela Urbana &bull; Projeto Ciência Viva. Todos os direitos reservados.</span>
+        <a href="#valorizacao">Problemática Ambiental</a>
+        <span>|</span>
+        <a href="#cultura-milho">Ensaio Agronômico 5×4</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Botão Verde Flutuante no Canto Inferior Direito -->
+  <button
+    type="button"
+    class="floating-action-btn"
+    id="scrollTopBtn"
+    title="Voltar ao topo"
+    aria-label="Voltar ao topo da página"
+  >
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4">
+      <polyline points="18 15 12 9 6 15" stroke-linecap="round" stroke-linejoin="round" />
+    </svg>
+  </button>
+
+  <!-- =====================================================================
+       MODAL 1: DELINEAMENTO EXPERIMENTAL DBC 5×4 (BIOCHAR + MILHO)
+       ===================================================================== -->
+  <div class="modal-backdrop" id="modalDbc" role="dialog" aria-modal="true" aria-labelledby="modalDbcTitle">
+    <div class="modal-dialog">
+      <button type="button" class="modal-close" data-close-modal aria-label="Fechar janela">&times;</button>
+      <p class="modal-eyebrow">Metodologia Experimental • Projeto Ciência Viva</p>
+      <h3 class="modal-title" id="modalDbcTitle">Delineamento em Blocos Casualizados (DBC 5×4)</h3>
+      <p class="modal-desc">
+        Avaliação agronômica da cultura de milho (<em>Zea mays L.</em>) submetida a <strong>5 tratamentos</strong> (quatro doses/tratamentos com biocarvão de podas urbanas mistas e uma testemunha controle) distribuídos aleatoriamente em <strong>4 blocos</strong> (totalizando 20 parcelas experimentais por modalidade).
+      </p>
+
+      <div class="dbc-tabs" role="tablist">
+        <button type="button" class="dbc-tab is-active" data-tab-mode="geral">Visão Geral 5×4</button>
+        <button type="button" class="dbc-tab" data-tab-mode="incorporado">Condicionador Incorporado</button>
+        <button type="button" class="dbc-tab" data-tab-mode="lanco">Aplicação a Lanço</button>
+      </div>
+
+      <div class="dbc-grid-wrapper" aria-label="Croqui casualizado de 4 blocos por 5 tratamentos">
+        <div class="dbc-block-row">
+          <span class="dbc-block-label">Bloco I</span>
+          <div class="dbc-plot plot-t0">T0<small>Testemunha</small></div>
+          <div class="dbc-plot plot-t2">T2<small>Biochar II</small></div>
+          <div class="dbc-plot plot-t4">T4<small>Biochar IV</small></div>
+          <div class="dbc-plot plot-t1">T1<small>Biochar I</small></div>
+          <div class="dbc-plot plot-t3">T3<small>Biochar III</small></div>
+        </div>
+        <div class="dbc-block-row">
+          <span class="dbc-block-label">Bloco II</span>
+          <div class="dbc-plot plot-t3">T3<small>Biochar III</small></div>
+          <div class="dbc-plot plot-t0">T0<small>Testemunha</small></div>
+          <div class="dbc-plot plot-t1">T1<small>Biochar I</small></div>
+          <div class="dbc-plot plot-t4">T4<small>Biochar IV</small></div>
+          <div class="dbc-plot plot-t2">T2<small>Biochar II</small></div>
+        </div>
+        <div class="dbc-block-row">
+          <span class="dbc-block-label">Bloco III</span>
+          <div class="dbc-plot plot-t1">T1<small>Biochar I</small></div>
+          <div class="dbc-plot plot-t4">T4<small>Biochar IV</small></div>
+          <div class="dbc-plot plot-t2">T2<small>Biochar II</small></div>
+          <div class="dbc-plot plot-t3">T3<small>Biochar III</small></div>
+          <div class="dbc-plot plot-t0">T0<small>Testemunha</small></div>
+        </div>
+        <div class="dbc-block-row">
+          <span class="dbc-block-label">Bloco IV</span>
+          <div class="dbc-plot plot-t4">T4<small>Biochar IV</small></div>
+          <div class="dbc-plot plot-t1">T1<small>Biochar I</small></div>
+          <div class="dbc-plot plot-t0">T0<small>Testemunha</small></div>
+          <div class="dbc-plot plot-t2">T2<small>Biochar II</small></div>
+          <div class="dbc-plot plot-t3">T3<small>Biochar III</small></div>
+        </div>
+      </div>
+
+      <div class="dbc-mode-note" id="dbcModeNote">
+        <strong>Atributos Agronômicos Observados:</strong> Desenvolvimento vegetativo do milho (<em>Zea mays L.</em>), estruturação física do solo, retenção hídrica, filtragem de nutrientes e aprisionamento estável de carbono oriundo da pirólise da lignina e celulose das podas urbanas.
+      </div>
+    </div>
+  </div>
+
+  <!-- =====================================================================
+       MODAL 2: CONTATO GRUPO ESTRELA URBANA
+       ===================================================================== -->
+  <div class="modal-backdrop" id="modalContact" role="dialog" aria-modal="true" aria-labelledby="modalContactTitle">
+    <div class="modal-dialog">
+      <button type="button" class="modal-close" data-close-modal aria-label="Fechar janela">&times;</button>
+      <p class="modal-eyebrow">Grupo Estrela Urbana • E.E. Frei Egídio Parisi</p>
+      <h3 class="modal-title" id="modalContactTitle">Entre em contato com a equipe</h3>
+      <p class="modal-desc">
+        Tem interesse nos resultados sobre o uso do biocarvão de podas urbanas mistas na cultura de milho ou deseja colaborar com o projeto <strong>Ciência Viva</strong>? Envie sua mensagem abaixo.
+      </p>
+
+      <form class="contact-form-grid" id="contactForm">
+        <div class="form-field">
+          <label for="contactName">Nome / Instituição</label>
+          <input type="text" id="contactName" name="name" placeholder="Seu nome completo ou instituição" required />
+        </div>
+        <div class="form-field">
+          <label for="contactEmail">E-mail para retorno</label>
+          <input type="email" id="contactEmail" name="email" placeholder="seuemail@exemplo.com" required />
+        </div>
+        <div class="form-field">
+          <label for="contactMessage">Mensagem ou interesse científico</label>
+          <textarea
+            id="contactMessage"
+            name="message"
+            rows="4"
+            placeholder="Dúvidas sobre pirólise de podas urbanas, concentrações de biochar ou delineamento DBC 5×4..."
+            required
+          ></textarea>
+        </div>
+        <div>
+          <button type="submit" class="btn-outline-green">Enviar Mensagem</button>
+          <p class="form-feedback" id="formFeedback" role="status"></p>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
