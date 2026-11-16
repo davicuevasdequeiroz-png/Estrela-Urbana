@@ -1241,23 +1241,29 @@ button {
 
 @media (max-width: 600px) {
   .hero-aerial-wrap {
-    min-height: 261px; /* -10% (antes 290px); cresce para preencher a tela */
+    min-height: 150px;
   }
 
   .hero-band {
-    padding: 28px 0 44px;
+    padding: 22px 0 calc(64px + env(safe-area-inset-bottom, 0px));
   }
 
   .hero-grid {
-    gap: 18px;
+    gap: 12px;
   }
 
   .hero-eyebrow {
-    margin-bottom: 8px;
+    margin-bottom: 6px;
   }
 
   .hero-headline {
-    font-size: clamp(24px, 7vw, 30px);
+    font-size: clamp(22px, 6.2vw, 27px);
+  }
+
+  .hero-description {
+    font-size: 13px;
+    line-height: 1.58;
+    margin-bottom: 16px;
   }
 
   .brand-title {
