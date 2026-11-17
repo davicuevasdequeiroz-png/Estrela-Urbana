@@ -53,6 +53,7 @@
       </button>
 
       <nav class="main-nav" id="mainNav" aria-label="Navegação principal">
+        <a href="#metodologia-scrolly">Metodologia</a>
         <a href="#valorizacao">Problemática</a>
         <a href="#pilares">Pirólise &amp; Biochar</a>
         <a href="#cultura-milho">Cultura do Milho</a>
@@ -88,8 +89,163 @@
             <p class="hero-description">
               Da valorização sustentável de resíduos arbóreos urbanos ao condicionamento do solo via pirólise, investigamos o uso do biocarvão incorporado e a lanço (DBC 5×4) para potencializar atributos agronômicos na cultura de <em>Zea mays L.</em>
             </p>
-            <a href="#valorizacao" class="btn-outline-green">Saiba Mais</a>
+            <a href="#metodologia-scrolly" class="btn-outline-green" id="heroSaibaMaisBtn">Saiba Mais</a>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         2.5 SEÇÃO INTERATIVA DE SCROLLYTELLING (METODOLOGIA E RESULTADOS)
+         =================================================================== -->
+    <section
+      class="scrolly-section"
+      id="metodologia-scrolly"
+      aria-label="Metodologia passo a passo e resultados esperados da pesquisa"
+    >
+      <div class="scrolly-container" id="scrollyContainer">
+        <!-- Coluna da Direita no Desktop (Sticky 9:16) / Fundo Fullscreen Sticky no Mobile -->
+        <div class="scrolly-stage-col">
+          <div class="scrolly-canvas-frame">
+            <canvas
+              id="scrollyCanvas"
+              width="1080"
+              height="1920"
+              aria-label="Animação interativa controlada pelo scroll demonstrando as 6 fases da pesquisa sobre biochar de podas urbanas no cultivo de milho"
+            ></canvas>
+
+            <!-- Vinheta sutil para legibilidade do HUD e do card mobile -->
+            <div class="scrolly-vignette" aria-hidden="true"></div>
+
+            <!-- Indicador Discreto de Progresso (Contador de Etapa 01/06 + Barra Fina) -->
+            <div class="scrolly-hud" aria-live="polite">
+              <div class="scrolly-hud-top">
+                <span class="scrolly-step-counter" id="scrollyStepCounter">01/06</span>
+                <span class="scrolly-phase-mini" id="scrollyPhaseMini">COLETA URBANA</span>
+              </div>
+              <div class="scrolly-progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="scrollyProgressBarWrap">
+                <div class="scrolly-progress-fill" id="scrollyProgressFill"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Coluna da Esquerda no Desktop (Scrollável) / Overlay Inferior no Mobile -->
+        <div class="scrolly-narrative-col" id="scrollyNarrativeCol">
+          <!-- Fase 1: Frames 001 ao 035 -->
+          <article
+            class="scrolly-card is-active"
+            data-phase-index="0"
+            data-frame-start="1"
+            data-frame-end="35"
+            style="--desktop-top: 68vh;"
+          >
+            <div class="scrolly-card-tag">
+              <span class="scrolly-tag-dot" aria-hidden="true"></span>
+              <span>01 &bull; COLETA URBANA</span>
+            </div>
+            <h2 class="scrolly-card-title">O destino das podas urbanas</h2>
+            <p class="scrolly-card-text">
+              No Brasil, resíduos verdes somam 45,3% do lixo urbano, mas menos de 2% são reciclados. Coletamos podas escolares e urbanas para evitar o descarte em aterros e transformá-las em bioinsumo.
+            </p>
+          </article>
+
+          <!-- Fase 2: Frames 046 ao 110 -->
+          <article
+            class="scrolly-card"
+            data-phase-index="1"
+            data-frame-start="46"
+            data-frame-end="110"
+            style="--desktop-top: 150.8vh;"
+          >
+            <div class="scrolly-card-tag">
+              <span class="scrolly-tag-dot" aria-hidden="true"></span>
+              <span>02 &bull; TRIAGEM E PREPARO</span>
+            </div>
+            <h2 class="scrolly-card-title">Separação e padronização da biomassa</h2>
+            <p class="scrolly-card-text">
+              No armazém, separamos folhas e madeira e removemos contaminantes como plásticos. A biomassa limpa é pesada e padronizada em lotes secos de 2,5 kg.
+            </p>
+          </article>
+
+          <!-- Fase 3: Frames 116 ao 183 -->
+          <article
+            class="scrolly-card"
+            data-phase-index="2"
+            data-frame-start="116"
+            data-frame-end="183"
+            style="--desktop-top: 244.4vh;"
+          >
+            <div class="scrolly-card-tag">
+              <span class="scrolly-tag-dot" aria-hidden="true"></span>
+              <span>03 &bull; PIRÓLISE A 500 °C</span>
+            </div>
+            <h2 class="scrolly-card-title">Transformação térmica no reator</h2>
+            <p class="scrolly-card-text">
+              No tambor metálico a ~500 °C e baixa concentração de oxigênio, a queima controlada converte lignina e celulose em biocarvão (biochar), fixando carbono em uma estrutura porosa.
+            </p>
+          </article>
+
+          <!-- Fase 4: Frames 184 ao 257 -->
+          <article
+            class="scrolly-card"
+            data-phase-index="3"
+            data-frame-start="184"
+            data-frame-end="257"
+            style="--desktop-top: 337.3vh;"
+          >
+            <div class="scrolly-card-tag">
+              <span class="scrolly-tag-dot" aria-hidden="true"></span>
+              <span>04 &bull; APLICAÇÃO NO SOLO</span>
+            </div>
+            <h2 class="scrolly-card-title">Retenção hídrica, pH e nutrientes</h2>
+            <p class="scrolly-card-text">
+              Aplicado ao solo com preparo prévio de 30 dias de irrigação, o biochar atua como condicionador físico-químico: retém mais água, equilibra o pH e fortalece a microbiota edáfica.
+            </p>
+          </article>
+
+          <!-- Fase 5: Frames 268 ao 330 -->
+          <article
+            class="scrolly-card"
+            data-phase-index="4"
+            data-frame-start="268"
+            data-frame-end="330"
+            style="--desktop-top: 440.1vh;"
+          >
+            <div class="scrolly-card-tag">
+              <span class="scrolly-tag-dot" aria-hidden="true"></span>
+              <span>05 &bull; EXPERIMENTO DBC 5×4</span>
+            </div>
+            <h2 class="scrolly-card-title">20 parcelas e 5 tratamentos em campo</h2>
+            <p class="scrolly-card-text">
+              Em 80 m² (4 blocos com parcelas de 2×2 m), avaliamos doses de 500 g/m² e 1.000 g/m² aplicadas em superfície (a lanço) e incorporadas (0–20 cm), comparadas à testemunha sem biochar.
+            </p>
+            <div class="scrolly-badges" aria-label="Tratamentos do delineamento experimental">
+              <span class="scrolly-badge-pill">T1: 500g Sup.</span>
+              <span class="scrolly-badge-pill">T2: 500g Inc.</span>
+              <span class="scrolly-badge-pill">T3: 1000g Sup.</span>
+              <span class="scrolly-badge-pill">T4: 1000g Inc.</span>
+              <span class="scrolly-badge-pill scrolly-badge-pill--control">T5: Controle</span>
+            </div>
+          </article>
+
+          <!-- Fase 6: Frames 332 ao 383 -->
+          <article
+            class="scrolly-card"
+            data-phase-index="5"
+            data-frame-start="332"
+            data-frame-end="383"
+            style="--desktop-top: 522vh;"
+          >
+            <div class="scrolly-card-tag">
+              <span class="scrolly-tag-dot" aria-hidden="true"></span>
+              <span>06 &bull; CULTURA DO MILHO (Zea mays L.)</span>
+            </div>
+            <h2 class="scrolly-card-title">Raízes vigorosas e maior produtividade</h2>
+            <p class="scrolly-card-text">
+              No cultivo do milho doce (híbrido Itapuã) analisado via ANOVA e teste de Dunnett no RStudio, espera-se maior comprimento radicular e aéreo, espigas maiores e menor dependência hídrica.
+            </p>
+          </article>
         </div>
       </div>
     </section>
@@ -380,7 +536,7 @@
             </p>
             <p>
               Contato do Grupo <span>|</span>
-              <a href="#contato" data-open-modal="contact">estrelaurbana.cienciaviva@edu.br</a>
+              <a href="#contato" data-open-modal="contact">grupoestrelaurbana@gmail.com</a>
             </p>
           </div>
         </div>
@@ -506,7 +662,14 @@
         Tem interesse nos resultados sobre o uso do biocarvão de podas urbanas mistas na cultura de milho ou deseja colaborar com o projeto <strong>Ciência Viva</strong>? Envie sua mensagem abaixo.
       </p>
 
-      <form class="contact-form-grid" id="contactForm">
+      <form
+        class="contact-form-grid"
+        id="contactForm"
+        action="https://formsubmit.co/grupoestrelaurbana@gmail.com"
+        method="POST"
+      >
+        <input type="hidden" name="_subject" value="Novo contato — Projeto Ciência Viva (Estrela Urbana)" />
+        <input type="hidden" name="_captcha" value="false" />
         <div class="form-field">
           <label for="contactName">Nome / Instituição</label>
           <input type="text" id="contactName" name="name" placeholder="Seu nome completo ou instituição" required />

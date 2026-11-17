@@ -1,0 +1,14 @@
+newmtl c1
+Kd 0.12 0.12 0.12
+newmtl c2
+Kd 0.08 0.42 0.20
+newmtl c3
+Kd 0.16 0.65 0.28
+newmtl c4
+Kd 0.48 0.82 0.22
+newmtl c5
+Kd 0.90 0.52 0.10
+newmtl c6
+Kd 0.98 0.78 0.15
+newmtl c7
+Kd 1.00 0.96 0.75
