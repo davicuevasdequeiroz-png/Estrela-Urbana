@@ -58,6 +58,7 @@
         <a href="#pilares">Pirólise &amp; Biochar</a>
         <a href="#cultura-milho">Cultura do Milho</a>
         <a href="#pesquisa-aberta">Lacuna Científica</a>
+        <a href="#quiz">Quiz</a>
         <a href="#contato" data-open-modal="contact">Contato</a>
       </nav>
     </div>
@@ -381,19 +382,56 @@
                 <button
                   type="button"
                   class="crop-link"
-                  data-open-modal="dbc"
-                  data-dbc-mode="incorporado"
+                  data-toggle-manejo="incorporado"
+                  aria-expanded="false"
+                  aria-controls="manejoCardIncorporado"
                 >
-                  Solo Incorporado &rarr;
+                  <span>Solo Incorporado</span>
+                  <span class="crop-link-arrow" aria-hidden="true">&rarr;</span>
                 </button>
                 <button
                   type="button"
                   class="crop-link"
-                  data-open-modal="dbc"
-                  data-dbc-mode="lanco"
+                  data-toggle-manejo="lanco"
+                  aria-expanded="false"
+                  aria-controls="manejoCardLanco"
                 >
-                  Aplicação a Lanço &rarr;
+                  <span>Aplicação a Lanço</span>
+                  <span class="crop-link-arrow" aria-hidden="true">&rarr;</span>
                 </button>
+              </div>
+
+              <!-- Pequenos cards expansíveis abaixo dos botões -->
+              <div class="crop-manejo-cards">
+                <div class="crop-manejo-card" id="manejoCardIncorporado" data-manejo-card="incorporado" hidden>
+                  <div class="crop-manejo-card-header">
+                    <h4 class="crop-manejo-card-title">Condicionador Incorporado</h4>
+                    <button
+                      type="button"
+                      class="crop-manejo-card-close"
+                      data-close-manejo="incorporado"
+                      aria-label="Fechar Condicionador Incorporado"
+                    >&times;</button>
+                  </div>
+                  <p class="crop-manejo-card-text">
+                    O biocarvão de podas urbanas mistas é homogeneizado diretamente na camada arável das parcelas (0–20 cm) antes da semeadura do milho (<em>Zea mays L.</em>), potencializando o contato direto com a rizosfera, a porosidade e a retenção de água em profundidade.
+                  </p>
+                </div>
+
+                <div class="crop-manejo-card" id="manejoCardLanco" data-manejo-card="lanco" hidden>
+                  <div class="crop-manejo-card-header">
+                    <h4 class="crop-manejo-card-title">Aplicação a Lanço</h4>
+                    <button
+                      type="button"
+                      class="crop-manejo-card-close"
+                      data-close-manejo="lanco"
+                      aria-label="Fechar Aplicação a Lanço"
+                    >&times;</button>
+                  </div>
+                  <p class="crop-manejo-card-text">
+                    O biocarvão é distribuído superficialmente a lanço sobre as parcelas nos 4 blocos casualizados, avaliando sua eficiência prática no condicionamento superficial, proteção física do solo, infiltração hídrica e resposta agronômica da cultura.
+                  </p>
+                </div>
               </div>
             </div>
           </div>
@@ -416,7 +454,7 @@
     <section class="contact-band-outer" id="pesquisa-aberta">
       <div class="contact-band-slate">
         <div class="contact-recessed-box">
-          <p class="contact-eyebrow">Gestão de Pesquisas • Ciência Viva</p>
+          <p class="contact-eyebrow">Gestão de Pesquisas</p>
           <h2 class="contact-heading">
             Entre em contato para<br />mais informações
           </h2>
@@ -501,6 +539,67 @@
         </div>
       </div>
     </section>
+
+    <!-- ===================================================================
+         7.5. ABA DE QUIZ SOBRE A APRESENTAÇÃO (SORTEIO DE PERGUNTAS 1 A 10)
+         =================================================================== -->
+    <section class="quiz-section" id="quiz" aria-labelledby="quizSectionTitle">
+      <div class="container">
+        <div class="section-header-center">
+          <div class="section-top-rule"></div>
+          <h2 class="section-title" id="quizSectionTitle">Quiz da Apresentação</h2>
+          <p class="section-intro">
+            Teste o seu conhecimento sobre a nossa apresentação.
+          </p>
+        </div>
+
+        <div class="quiz-stage-slate">
+          <div class="quiz-recessed-panel">
+            <p class="quiz-eyebrow">Dinâmica Interativa</p>
+            <h3 class="quiz-panel-heading">Sorteador de Perguntas</h3>
+            <p class="quiz-panel-sub">
+              Ao acionar o sorteio, os números de <strong>1 a 10</strong> girarão até revelar a questão selecionada em destaque na tela.
+            </p>
+
+            <!-- Visor Estilo Cassino (Roleta Vertical 1 a 10) -->
+            <div class="quiz-slot-machine" id="quizSlotMachine" aria-live="polite">
+              <div class="quiz-slot-frame">
+                <span class="quiz-slot-pointer quiz-slot-pointer--left" aria-hidden="true">&#9654;</span>
+                <div class="quiz-slot-window" aria-label="Visor de sorteio numérico de 1 a 10">
+                  <div class="quiz-slot-track" id="quizMainSlotTrack">
+                    <div class="quiz-slot-item">01</div>
+                    <div class="quiz-slot-item">02</div>
+                    <div class="quiz-slot-item">03</div>
+                    <div class="quiz-slot-item">04</div>
+                    <div class="quiz-slot-item">05</div>
+                    <div class="quiz-slot-item">06</div>
+                    <div class="quiz-slot-item">07</div>
+                    <div class="quiz-slot-item">08</div>
+                    <div class="quiz-slot-item">09</div>
+                    <div class="quiz-slot-item">10</div>
+                  </div>
+                </div>
+                <span class="quiz-slot-pointer quiz-slot-pointer--right" aria-hidden="true">&#9664;</span>
+              </div>
+              <span class="quiz-slot-status" id="quizSlotStatus">Pronto para sortear (1 – 10)</span>
+            </div>
+
+            <button
+              type="button"
+              class="btn-outline-green btn-quiz-draw"
+              id="quizDrawBtn"
+            >
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <polyline points="23 4 23 10 17 10" />
+                <polyline points="1 20 1 14 7 14" />
+                <path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15" />
+              </svg>
+              <span>Sortear Pergunta</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
   </main>
 
   <!-- =====================================================================
@@ -574,6 +673,8 @@
         <a href="#valorizacao">Problemática Ambiental</a>
         <span>|</span>
         <a href="#cultura-milho">Ensaio Agronômico 5×4</a>
+        <span>|</span>
+        <a href="#quiz">Quiz da Apresentação</a>
       </div>
     </div>
   </footer>
@@ -597,17 +698,11 @@
   <div class="modal-backdrop" id="modalDbc" role="dialog" aria-modal="true" aria-labelledby="modalDbcTitle">
     <div class="modal-dialog">
       <button type="button" class="modal-close" data-close-modal aria-label="Fechar janela">&times;</button>
-      <p class="modal-eyebrow">Metodologia Experimental • Projeto Ciência Viva</p>
+      <p class="modal-eyebrow">Metodologia Experimental</p>
       <h3 class="modal-title" id="modalDbcTitle">Delineamento em Blocos Casualizados (DBC 5×4)</h3>
       <p class="modal-desc">
-        Avaliação agronômica da cultura de milho (<em>Zea mays L.</em>) submetida a <strong>5 tratamentos</strong> (quatro doses/tratamentos com biocarvão de podas urbanas mistas e uma testemunha controle) distribuídos aleatoriamente em <strong>4 blocos</strong> (totalizando 20 parcelas experimentais por modalidade).
+        Avaliação agronômica da cultura de milho (<em>Zea mays L.</em>) submetida a <strong>5 tratamentos</strong> (quatro doses/tratamentos com biocarvão de podas urbanas mistas e uma testemunha controle) distribuídos aleatoriamente em <strong>4 blocos</strong> (totalizando 20 parcelas experimentais por modalidade), observando atributos agronômicos como o desenvolvimento vegetativo da planta, a estruturação física do solo, a retenção hídrica, a filtragem de nutrientes e o aprisionamento estável de carbono oriundo da pirólise da lignina e celulose das podas urbanas.
       </p>
-
-      <div class="dbc-tabs" role="tablist">
-        <button type="button" class="dbc-tab is-active" data-tab-mode="geral">Visão Geral 5×4</button>
-        <button type="button" class="dbc-tab" data-tab-mode="incorporado">Condicionador Incorporado</button>
-        <button type="button" class="dbc-tab" data-tab-mode="lanco">Aplicação a Lanço</button>
-      </div>
 
       <div class="dbc-grid-wrapper" aria-label="Croqui casualizado de 4 blocos por 5 tratamentos">
         <div class="dbc-block-row">
@@ -642,10 +737,6 @@
           <div class="dbc-plot plot-t2">T2<small>Biochar II</small></div>
           <div class="dbc-plot plot-t3">T3<small>Biochar III</small></div>
         </div>
-      </div>
-
-      <div class="dbc-mode-note" id="dbcModeNote">
-        <strong>Atributos Agronômicos Observados:</strong> Desenvolvimento vegetativo do milho (<em>Zea mays L.</em>), estruturação física do solo, retenção hídrica, filtragem de nutrientes e aprisionamento estável de carbono oriundo da pirólise da lignina e celulose das podas urbanas.
       </div>
     </div>
   </div>
@@ -693,6 +784,74 @@
           <p class="form-feedback" id="formFeedback" role="status"></p>
         </div>
       </form>
+    </div>
+  </div>
+
+  <!-- =====================================================================
+       MODAL 3: CARD EXPANDIDO DE PERGUNTA DO QUIZ (SORTEIO 1 A 10)
+       ===================================================================== -->
+  <div
+    class="modal-backdrop quiz-modal-backdrop"
+    id="modalQuiz"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="quizCardTitle"
+  >
+    <div class="modal-dialog quiz-expanded-card" id="quizExpandedCard">
+      <button
+        type="button"
+        class="modal-close quiz-card-close"
+        id="quizCloseBtn"
+        data-close-modal
+        aria-label="Fechar card da pergunta"
+        title="Fechar pergunta"
+      >&times;</button>
+
+      <div class="quiz-card-top">
+        <div class="quiz-card-badge-wrap">
+          <span class="quiz-card-eyebrow">Quiz da Apresentação</span>
+          <span class="quiz-card-number-pill" id="quizCardNumberPill">PERGUNTA Nº 01</span>
+        </div>
+
+        <!-- Mini Roleta Numérica no Card para Ressorteio em Tempo Real -->
+        <div class="quiz-card-mini-slot" id="quizCardMiniSlot" aria-hidden="true">
+          <div class="quiz-card-mini-window">
+            <div class="quiz-slot-track" id="quizCardSlotTrack">
+              <div class="quiz-slot-item">01</div>
+              <div class="quiz-slot-item">02</div>
+              <div class="quiz-slot-item">03</div>
+              <div class="quiz-slot-item">04</div>
+              <div class="quiz-slot-item">05</div>
+              <div class="quiz-slot-item">06</div>
+              <div class="quiz-slot-item">07</div>
+              <div class="quiz-slot-item">08</div>
+              <div class="quiz-slot-item">09</div>
+              <div class="quiz-slot-item">10</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="quiz-card-body" id="quizCardBody" aria-live="polite">
+        <h3 class="quiz-card-question" id="quizCardTitle">
+          1- Qual é a matéria-prima utilizada para produzir o biocarvão (biochar) neste projeto?
+        </h3>
+      </div>
+
+      <div class="quiz-card-footer">
+        <button
+          type="button"
+          class="btn-outline-green btn-outline-green--accent btn-quiz-redraw"
+          id="quizRedrawBtn"
+        >
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <polyline points="23 4 23 10 17 10" />
+            <polyline points="1 20 1 14 7 14" />
+            <path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15" />
+          </svg>
+          <span>Ressortear Pergunta</span>
+        </button>
+      </div>
     </div>
   </div>
 

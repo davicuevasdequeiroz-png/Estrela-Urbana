@@ -72,34 +72,39 @@
     });
   }
 
-  // 3. Modais Científicos (DBC 5×4 & Contato)
+  // 3. Modais Científicos (DBC 5×4, Contato & Quiz) e Cards de Manejo
   const modalDbc = document.getElementById('modalDbc');
   const modalContact = document.getElementById('modalContact');
-  const dbcModeNote = document.getElementById('dbcModeNote');
-  const dbcTabs = document.querySelectorAll('[data-tab-mode]');
+  const modalQuiz = document.getElementById('modalQuiz');
 
-  const modeDescriptions = {
-    geral:
-      '<strong>Atributos Agronômicos Observados:</strong> Desenvolvimento vegetativo do milho (<em>Zea mays L.</em>), estruturação física do solo, retenção hídrica, filtragem de nutrientes e aprisionamento estável de carbono oriundo da pirólise da lignina e celulose das podas urbanas.',
-    incorporado:
-      '<strong>Manejo Solo Incorporado:</strong> O biocarvão de podas urbanas mistas é homogeneizado diretamente na camada arável das parcelas antes da semeadura do milho (<em>Zea mays L.</em>), potencializando o contato direto com a rizosfera, a porosidade e a retenção de água em profundidade.',
-    lanco:
-      '<strong>Manejo Aplicação a Lanço:</strong> O biocarvão é distribuído superficialmente a lanço sobre as parcelas nos 4 blocos casualizados, avaliando sua eficiência prática no condicionamento superficial, proteção física do solo, infiltração hídrica e resposta agronômica da cultura.',
-  };
+  // Pequenos cards expansíveis abaixo dos botões "Solo Incorporado" e "Aplicação a Lanço"
+  const manejoToggleBtns = document.querySelectorAll('[data-toggle-manejo]');
+  const manejoCloseBtns = document.querySelectorAll('[data-close-manejo]');
 
-  function setDbcTab(mode) {
-    const validMode = modeDescriptions[mode] ? mode : 'geral';
-    dbcTabs.forEach((btn) => {
-      btn.classList.toggle('is-active', btn.getAttribute('data-tab-mode') === validMode);
-    });
-    if (dbcModeNote) {
-      dbcModeNote.innerHTML = modeDescriptions[validMode];
-    }
+  function setManejoCardOpen(mode, shouldOpen) {
+    const btn = document.querySelector(`[data-toggle-manejo="${mode}"]`);
+    const card = document.querySelector(`[data-manejo-card="${mode}"]`);
+    if (!btn || !card) return;
+
+    btn.classList.toggle('is-active', shouldOpen);
+    btn.setAttribute('aria-expanded', String(shouldOpen));
+    card.hidden = !shouldOpen;
   }
 
-  dbcTabs.forEach((btn) => {
+  manejoToggleBtns.forEach((btn) => {
     btn.addEventListener('click', () => {
-      setDbcTab(btn.getAttribute('data-tab-mode'));
+      const mode = btn.getAttribute('data-toggle-manejo');
+      const card = document.querySelector(`[data-manejo-card="${mode}"]`);
+      if (!mode || !card) return;
+      const isCurrentlyHidden = card.hidden;
+      setManejoCardOpen(mode, isCurrentlyHidden);
+    });
+  });
+
+  manejoCloseBtns.forEach((closeBtn) => {
+    closeBtn.addEventListener('click', () => {
+      const mode = closeBtn.getAttribute('data-close-manejo');
+      if (mode) setManejoCardOpen(mode, false);
     });
   });
 
@@ -110,7 +115,7 @@
   }
 
   function closeAllModals() {
-    [modalDbc, modalContact].forEach((m) => {
+    [modalDbc, modalContact, modalQuiz].forEach((m) => {
       if (m) m.classList.remove('is-open');
     });
     document.body.style.overflow = '';
@@ -120,10 +125,8 @@
     trigger.addEventListener('click', (event) => {
       event.preventDefault();
       const target = trigger.getAttribute('data-open-modal');
-      const dbcMode = trigger.getAttribute('data-dbc-mode');
 
       if (target === 'dbc') {
-        if (dbcMode) setDbcTab(dbcMode);
         openModal(modalDbc);
       } else if (target === 'contact') {
         openModal(modalContact);
@@ -135,7 +138,7 @@
     closeBtn.addEventListener('click', closeAllModals);
   });
 
-  [modalDbc, modalContact].forEach((backdrop) => {
+  [modalDbc, modalContact, modalQuiz].forEach((backdrop) => {
     if (!backdrop) return;
     backdrop.addEventListener('click', (event) => {
       if (event.target === backdrop) closeAllModals();
@@ -466,5 +469,234 @@
 
     startPreloading();
     requestTick();
+  }
+
+  // 7. Quiz da Apresentação (Sorteio Estilo Cassino 1 a 10 + Card Expandido)
+  const QUIZ_QUESTIONS = [
+    {
+      number: 1,
+      text: '1- Qual é a matéria-prima utilizada para produzir o biocarvão (biochar) neste projeto?',
+    },
+    {
+      number: 2,
+      text: '2- Qual é o nome do processo de queima em baixa concentração de oxigênio usado para criar o biochar?',
+    },
+    {
+      number: 3,
+      text: '3- Qual cultura agrícola (planta) foi escolhida para testar os efeitos do biochar no solo?',
+    },
+    {
+      number: 4,
+      text: '4- Qual é a temperatura aproximada atingida no reator para a produção do biocarvão?',
+    },
+    {
+      number: 5,
+      text: '5- Para onde vai a maior parte (cerca de 44%) do lixo orgânico urbano no Brasil quando não é reciclado?',
+    },
+    {
+      number: 6,
+      text: '6- Quantos tratamentos diferentes (incluindo a parcela testemunha) compõem o experimento?',
+    },
+    {
+      number: 7,
+      text: '7- O projeto testa a aplicação do biochar de duas maneiras diferentes no solo. Quais são elas?',
+    },
+    {
+      number: 8,
+      text: '8- Como o biocarvão ajuda a planta a resistir a períodos de seca (estresse hídrico)?',
+    },
+    {
+      number: 9,
+      text: '9- O projeto avalia o uso do biocarvão como um "condicionador" para qual elemento da natureza?',
+    },
+    {
+      number: 10,
+      text: '10- Cite um dos atributos agronômicos do milho que nós vamos observar e medir após a aplicação.',
+    },
+  ];
+
+  const quizSlotMachine = document.getElementById('quizSlotMachine');
+  const quizMainSlotTrack = document.getElementById('quizMainSlotTrack');
+  const quizSlotStatus = document.getElementById('quizSlotStatus');
+  const quizDrawBtn = document.getElementById('quizDrawBtn');
+
+  const quizCardMiniSlot = document.getElementById('quizCardMiniSlot');
+  const quizCardSlotTrack = document.getElementById('quizCardSlotTrack');
+  const quizCardNumberPill = document.getElementById('quizCardNumberPill');
+  const quizCardBody = document.getElementById('quizCardBody');
+  const quizCardTitle = document.getElementById('quizCardTitle');
+  const quizRedrawBtn = document.getElementById('quizRedrawBtn');
+
+  if (quizMainSlotTrack && quizDrawBtn && modalQuiz) {
+    const TOTAL_NUMBERS = 10;
+    const REEL_LOOPS = 6; // 6 voltas completas de 1 a 10 para rotação fluida de cassino
+    const MAIN_ITEM_HEIGHT = 76;
+    const MINI_ITEM_HEIGHT = 48;
+
+    let currentSlotIndex = 0; // 0..9 (representa números 1..10)
+    let isSpinningQuiz = false;
+    let remainingIndices = [];
+
+    function buildReelItems(trackEl) {
+      if (!trackEl) return;
+      const fragment = document.createDocumentFragment();
+      for (let loop = 0; loop < REEL_LOOPS; loop++) {
+        for (let n = 1; n <= TOTAL_NUMBERS; n++) {
+          const item = document.createElement('div');
+          item.className = 'quiz-slot-item';
+          item.textContent = String(n).padStart(2, '0');
+          item.setAttribute('data-slot-number', String(n));
+          fragment.appendChild(item);
+        }
+      }
+      trackEl.innerHTML = '';
+      trackEl.appendChild(fragment);
+    }
+
+    buildReelItems(quizMainSlotTrack);
+    buildReelItems(quizCardSlotTrack);
+
+    function pickNextQuestionIndex() {
+      if (remainingIndices.length === 0) {
+        remainingIndices = QUIZ_QUESTIONS.map((_, idx) => idx);
+      }
+      // Evita repetir imediatamente a mesma pergunta ao iniciar um novo ciclo
+      let candidates = remainingIndices;
+      if (candidates.length > 1) {
+        const filtered = candidates.filter((idx) => idx !== currentSlotIndex);
+        if (filtered.length > 0) candidates = filtered;
+      }
+      const randomPick = candidates[Math.floor(Math.random() * candidates.length)];
+      remainingIndices = remainingIndices.filter((idx) => idx !== randomPick);
+      return randomPick;
+    }
+
+    function setTrackPositionInstant(trackEl, itemIndex, itemHeight) {
+      if (!trackEl) return;
+      trackEl.style.transition = 'none';
+      trackEl.style.transform = `translate3d(0, -${itemIndex * itemHeight}px, 0)`;
+      // Force reflow so subsequent transition animates cleanly
+      void trackEl.offsetHeight;
+    }
+
+    function animateTrackTo(trackEl, targetSlotIndex, itemHeight, durationMs) {
+      if (!trackEl) return;
+      // Começa na primeira volta (loop 0) na posição atual e gira até a penúltima volta (loop REEL_LOOPS - 2)
+      setTrackPositionInstant(trackEl, currentSlotIndex, itemHeight);
+      const targetAbsoluteIndex = (REEL_LOOPS - 2) * TOTAL_NUMBERS + targetSlotIndex;
+
+      trackEl.querySelectorAll('.quiz-slot-item.is-winner').forEach((el) => {
+        el.classList.remove('is-winner');
+      });
+
+      trackEl.style.transition = `transform ${durationMs}ms cubic-bezier(0.12, 0.82, 0.18, 1)`;
+      trackEl.style.transform = `translate3d(0, -${targetAbsoluteIndex * itemHeight}px, 0)`;
+
+      const winningEl = trackEl.children[targetAbsoluteIndex];
+      if (winningEl) {
+        winningEl.classList.add('is-winner');
+      }
+    }
+
+    function runQuizDraw(fromInsideCard) {
+      if (isSpinningQuiz) return;
+      isSpinningQuiz = true;
+
+      const chosenIndex = pickNextQuestionIndex();
+      const chosenQuestion = QUIZ_QUESTIONS[chosenIndex];
+      const formattedNum = String(chosenQuestion.number).padStart(2, '0');
+      const spinDuration = 1550;
+
+      // Estado visual de giro nos botões e visores
+      quizDrawBtn.disabled = true;
+      if (quizRedrawBtn) quizRedrawBtn.disabled = true;
+
+      const drawIcon = quizDrawBtn.querySelector('svg');
+      const redrawIcon = quizRedrawBtn ? quizRedrawBtn.querySelector('svg') : null;
+      if (drawIcon) drawIcon.classList.add('is-spinning-icon');
+      if (redrawIcon) redrawIcon.classList.add('is-spinning-icon');
+
+      if (quizSlotMachine) {
+        quizSlotMachine.classList.remove('is-landed');
+        quizSlotMachine.classList.add('is-spinning');
+      }
+      if (quizCardMiniSlot) {
+        quizCardMiniSlot.classList.remove('is-landed');
+        quizCardMiniSlot.classList.add('is-spinning');
+      }
+      if (fromInsideCard && quizCardBody) {
+        quizCardBody.classList.add('is-updating');
+      }
+
+      // Contador rápido de status simulando os números passando no cassino
+      let statusTick = 0;
+      const statusInterval = window.setInterval(() => {
+        statusTick = (statusTick % TOTAL_NUMBERS) + 1;
+        const rollingStr = String(statusTick).padStart(2, '0');
+        if (quizSlotStatus) {
+          quizSlotStatus.textContent = `Sorteando... [ ${rollingStr} ]`;
+        }
+        if (fromInsideCard && quizCardNumberPill) {
+          quizCardNumberPill.textContent = `SORTEANDO... ${rollingStr}`;
+        }
+      }, 85);
+
+      // Dispara animação vertical da roleta (1 a 10)
+      animateTrackTo(quizMainSlotTrack, chosenIndex, MAIN_ITEM_HEIGHT, spinDuration);
+      animateTrackTo(quizCardSlotTrack, chosenIndex, MINI_ITEM_HEIGHT, spinDuration);
+
+      window.setTimeout(() => {
+        window.clearInterval(statusInterval);
+        currentSlotIndex = chosenIndex;
+
+        if (quizSlotMachine) {
+          quizSlotMachine.classList.remove('is-spinning');
+          quizSlotMachine.classList.add('is-landed');
+        }
+        if (quizCardMiniSlot) {
+          quizCardMiniSlot.classList.remove('is-spinning');
+          quizCardMiniSlot.classList.add('is-landed');
+        }
+        if (quizSlotStatus) {
+          quizSlotStatus.textContent = `Pergunta sorteada: Nº ${formattedNum}`;
+        }
+
+        // Atualiza conteúdo do card expandido
+        if (quizCardNumberPill) {
+          quizCardNumberPill.textContent = `PERGUNTA Nº ${formattedNum}`;
+        }
+        if (quizCardTitle) {
+          quizCardTitle.textContent = chosenQuestion.text;
+        }
+        if (quizCardBody) {
+          quizCardBody.classList.remove('is-updating');
+        }
+
+        if (drawIcon) drawIcon.classList.remove('is-spinning-icon');
+        if (redrawIcon) redrawIcon.classList.remove('is-spinning-icon');
+        quizDrawBtn.disabled = false;
+        if (quizRedrawBtn) quizRedrawBtn.disabled = false;
+
+        if (!fromInsideCard) {
+          // Pequena pausa para visualizar o número sorteado no visor antes de expandir o card
+          window.setTimeout(() => {
+            openModal(modalQuiz);
+            isSpinningQuiz = false;
+          }, 280);
+        } else {
+          isSpinningQuiz = false;
+        }
+      }, spinDuration);
+    }
+
+    quizDrawBtn.addEventListener('click', () => {
+      runQuizDraw(false);
+    });
+
+    if (quizRedrawBtn) {
+      quizRedrawBtn.addEventListener('click', () => {
+        runQuizDraw(true);
+      });
+    }
   }
 })();

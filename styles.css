@@ -959,6 +959,7 @@ button {
 
 .crop-partnerships {
   margin-top: 32px;
+  width: 100%;
 }
 
 .crop-partnerships-label {
@@ -981,14 +982,99 @@ button {
   color: #ffffff;
   display: inline-flex;
   align-items: center;
-  gap: 4px;
+  gap: 5px;
   background: none;
   border: none;
-  padding: 0;
+  padding: 4px 0;
+  border-bottom: 1.5px solid transparent;
+  transition: color 0.2s ease, border-color 0.2s ease;
 }
 
-.crop-link:hover {
+.crop-link:hover,
+.crop-link.is-active {
   color: #67c278;
+}
+
+.crop-link.is-active {
+  border-bottom-color: #67c278;
+}
+
+.crop-link-arrow {
+  display: inline-block;
+  transition: transform 0.22s ease;
+}
+
+.crop-link.is-active .crop-link-arrow {
+  transform: rotate(90deg);
+}
+
+/* Small Expandable Manejo Cards underneath the buttons */
+.crop-manejo-cards {
+  display: grid;
+  gap: 10px;
+  margin-top: 14px;
+  width: 100%;
+}
+
+.crop-manejo-card[hidden] {
+  display: none;
+}
+
+.crop-manejo-card {
+  background-color: var(--bg-slate-recessed);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-left: 3px solid var(--green-bright);
+  padding: 14px 16px;
+  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.28);
+  animation: cropManejoSlideDown 0.24s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes cropManejoSlideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.crop-manejo-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+
+.crop-manejo-card-title {
+  font-family: var(--font-brand);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #6ee782;
+}
+
+.crop-manejo-card-close {
+  background: transparent;
+  border: none;
+  color: #8f98a3;
+  font-size: 16px;
+  line-height: 1;
+  padding: 0 2px;
+  transition: color 0.18s ease;
+}
+
+.crop-manejo-card-close:hover {
+  color: #ffffff;
+}
+
+.crop-manejo-card-text {
+  font-size: 12.2px;
+  line-height: 1.58;
+  color: var(--text-slate-body);
 }
 
 /* Right Studio Visual on Seamless White */
@@ -1191,6 +1277,219 @@ button {
 }
 
 /* ==========================================================================
+   7.5. PRESENTATION QUIZ SECTION (CASINO 1-10 ROULETTE & EXPANDING CARD)
+   ========================================================================== */
+.quiz-section {
+  background-color: var(--bg-light-frame);
+  padding: 78px 0 96px;
+  border-top: 1px solid #e5e7eb;
+}
+
+.quiz-stage-slate {
+  max-width: 860px;
+  margin: 0 auto;
+  background-color: var(--bg-slate);
+  padding: 58px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  box-shadow: 0 22px 48px rgba(15, 23, 42, 0.12);
+}
+
+.quiz-recessed-panel {
+  background-color: var(--bg-slate-recessed);
+  width: 100%;
+  max-width: 540px;
+  padding: 46px 42px;
+  text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: 0 22px 48px rgba(0, 0, 0, 0.34);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.quiz-eyebrow {
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.19em;
+  text-transform: uppercase;
+  color: var(--green-quote);
+  margin-bottom: 10px;
+}
+
+.quiz-panel-heading {
+  font-size: clamp(23px, 2.5vw, 29px);
+  font-weight: 700;
+  line-height: 1.24;
+  color: #ffffff;
+  margin-bottom: 12px;
+}
+
+.quiz-panel-sub {
+  font-size: 13px;
+  line-height: 1.66;
+  color: #adb5bf;
+  max-width: 420px;
+  margin-bottom: 28px;
+}
+
+.quiz-panel-sub strong {
+  color: #e5e7eb;
+  font-weight: 600;
+}
+
+/* Casino Slot Machine Display (1 to 10) */
+.quiz-slot-machine {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 28px;
+  width: 100%;
+}
+
+.quiz-slot-frame {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding: 12px 22px;
+  background: linear-gradient(180deg, #0b0d0c 0%, #161b18 50%, #0b0d0c 100%);
+  border: 1px solid rgba(76, 175, 80, 0.38);
+  box-shadow:
+    inset 0 0 24px rgba(0, 0, 0, 0.85),
+    0 10px 28px rgba(0, 0, 0, 0.45);
+  position: relative;
+  transition: border-color 0.28s ease, box-shadow 0.28s ease, transform 0.28s ease;
+}
+
+.quiz-slot-machine.is-spinning .quiz-slot-frame {
+  border-color: var(--green-bright);
+  box-shadow:
+    inset 0 0 28px rgba(0, 0, 0, 0.9),
+    0 0 26px rgba(76, 175, 80, 0.35);
+}
+
+.quiz-slot-machine.is-landed .quiz-slot-frame {
+  border-color: #6ee782;
+  box-shadow:
+    inset 0 0 20px rgba(59, 135, 72, 0.28),
+    0 0 32px rgba(76, 175, 80, 0.52);
+  transform: scale(1.04);
+}
+
+.quiz-slot-pointer {
+  font-size: 11px;
+  color: var(--green-bright);
+  opacity: 0.85;
+  text-shadow: 0 0 8px rgba(76, 175, 80, 0.65);
+  user-select: none;
+}
+
+.quiz-slot-window {
+  width: 124px;
+  height: 76px;
+  overflow: hidden;
+  position: relative;
+  background-color: #090b0a;
+  border-left: 1px solid rgba(255, 255, 255, 0.08);
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Top & bottom cylindrical reel shadow mask */
+.quiz-slot-window::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(9, 11, 10, 0.88) 0%,
+    rgba(9, 11, 10, 0.08) 28%,
+    rgba(9, 11, 10, 0.08) 72%,
+    rgba(9, 11, 10, 0.88) 100%
+  );
+  pointer-events: none;
+  z-index: 2;
+}
+
+.quiz-slot-track {
+  display: flex;
+  flex-direction: column;
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+}
+
+.quiz-slot-machine.is-spinning .quiz-slot-track,
+.quiz-card-mini-slot.is-spinning .quiz-slot-track {
+  filter: blur(0.7px);
+}
+
+.quiz-slot-item {
+  height: 76px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-brand);
+  font-size: 38px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  color: #ffffff;
+  text-shadow: 0 2px 12px rgba(76, 175, 80, 0.35);
+  user-select: none;
+  flex-shrink: 0;
+}
+
+.quiz-slot-machine.is-landed .quiz-slot-item.is-winner {
+  color: #6ee782;
+  text-shadow: 0 0 18px rgba(110, 231, 130, 0.65);
+}
+
+.quiz-slot-status {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #8f98a3;
+  min-height: 18px;
+  transition: color 0.2s ease;
+}
+
+.quiz-slot-machine.is-spinning .quiz-slot-status {
+  color: #6ee782;
+}
+
+.btn-quiz-draw,
+.btn-quiz-redraw {
+  gap: 10px;
+  padding: 12px 30px;
+  font-size: 12.5px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.btn-quiz-draw:disabled,
+.btn-quiz-redraw:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+.btn-quiz-draw svg.is-spinning-icon,
+.btn-quiz-redraw svg.is-spinning-icon {
+  animation: quizSpinIcon 0.65s linear infinite;
+}
+
+@keyframes quizSpinIcon {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ==========================================================================
    8. FOOTER
    ========================================================================== */
 .site-footer {
@@ -1380,42 +1679,19 @@ button {
   margin-bottom: 24px;
 }
 
-/* Interactive Tabs inside Modal */
-.dbc-tabs {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 20px;
-  flex-wrap: wrap;
-}
-
-.dbc-tab {
-  padding: 8px 16px;
-  font-size: 12px;
-  font-weight: 600;
-  background-color: #20242b;
-  border: 1px solid #2e343e;
-  color: #cfd6de;
-}
-
-.dbc-tab.is-active {
-  background-color: rgba(59, 135, 72, 0.2);
-  border-color: var(--green-bright);
-  color: #ffffff;
-}
-
 /* 5x4 Randomized Block Grid Visualization */
 .dbc-grid-wrapper {
   background-color: #101216;
   border: 1px solid #262b33;
   padding: 20px;
-  margin-bottom: 20px;
+  margin-bottom: 16px;
 }
 
 .dbc-block-row {
   display: grid;
-  grid-template-columns: 78px repeat(5, 1fr);
+  grid-template-columns: 78px repeat(5, minmax(0, 1fr));
   gap: 8px;
-  align-items: center;
+  align-items: stretch;
   margin-bottom: 8px;
 }
 
@@ -1429,6 +1705,8 @@ button {
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: #8f98a3;
+  display: flex;
+  align-items: center;
 }
 
 .dbc-plot {
@@ -1438,6 +1716,11 @@ button {
   font-weight: 700;
   border: 1px solid rgba(255, 255, 255, 0.08);
   transition: transform 0.15s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
 }
 
 .dbc-plot:hover {
@@ -1450,6 +1733,10 @@ button {
   font-weight: 400;
   opacity: 0.82;
   margin-top: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
 }
 
 .plot-t0 { background-color: #3d3427; color: #f3e9d2; }
@@ -1457,14 +1744,6 @@ button {
 .plot-t2 { background-color: #1f4d28; color: #dcfce7; }
 .plot-t3 { background-color: #193822; color: #86efac; border-color: rgba(74, 222, 128, 0.35); }
 .plot-t4 { background-color: #181a1b; color: #f4f4f5; border-color: rgba(234, 179, 8, 0.4); }
-
-.dbc-mode-note {
-  font-size: 12.5px;
-  color: #cfd6de;
-  background-color: #20242b;
-  border-left: 3px solid var(--green-bright);
-  padding: 12px 16px;
-}
 
 /* Contact Form inside Contact Modal */
 .contact-form-grid {
@@ -1502,6 +1781,162 @@ button {
   color: var(--green-quote);
   margin-top: 8px;
   min-height: 18px;
+}
+
+/* ==========================================================================
+   9.5. EXPANDED QUIZ QUESTION CARD (MODAL OVERLAY)
+   ========================================================================== */
+.quiz-modal-backdrop {
+  background-color: rgba(8, 10, 9, 0.84);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+.quiz-expanded-card {
+  max-width: 680px;
+  background: linear-gradient(165deg, #161b19 0%, #12151a 100%);
+  border: 1px solid rgba(76, 175, 80, 0.42);
+  padding: 44px 44px 38px;
+  box-shadow:
+    0 32px 72px rgba(0, 0, 0, 0.65),
+    0 0 0 1px rgba(76, 175, 80, 0.14),
+    inset 0 3px 0 var(--green-bright);
+  transform: scale(0.84) translateY(24px);
+  opacity: 0;
+  transition:
+    transform 0.36s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.28s ease;
+}
+
+.quiz-modal-backdrop.is-open .quiz-expanded-card {
+  transform: scale(1) translateY(0);
+  opacity: 1;
+}
+
+.quiz-card-close {
+  top: 22px;
+  right: 22px;
+  width: 38px;
+  height: 38px;
+  font-size: 22px;
+  line-height: 1;
+  background-color: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  transition: all 0.2s ease;
+}
+
+.quiz-card-close:hover {
+  background-color: rgba(76, 175, 80, 0.18);
+  border-color: var(--green-bright);
+  color: #ffffff;
+  transform: rotate(90deg);
+}
+
+.quiz-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding-right: 48px;
+  margin-bottom: 26px;
+  flex-wrap: wrap;
+}
+
+.quiz-card-badge-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.quiz-card-eyebrow {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #8f98a3;
+}
+
+.quiz-card-number-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 14px;
+  font-family: var(--font-brand);
+  font-size: 11.5px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #6ee782;
+  background-color: rgba(59, 135, 72, 0.2);
+  border: 1px solid rgba(76, 175, 80, 0.48);
+}
+
+/* Mini Casino Reel inside the Card for In-Place Redraw */
+.quiz-card-mini-slot {
+  padding: 5px 12px;
+  background-color: #090b0a;
+  border: 1px solid rgba(76, 175, 80, 0.38);
+  box-shadow: inset 0 0 14px rgba(0, 0, 0, 0.85);
+  transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+}
+
+.quiz-card-mini-slot.is-spinning {
+  border-color: var(--green-bright);
+  box-shadow:
+    inset 0 0 16px rgba(0, 0, 0, 0.9),
+    0 0 20px rgba(76, 175, 80, 0.35);
+}
+
+.quiz-card-mini-slot.is-landed {
+  border-color: #6ee782;
+  box-shadow: 0 0 22px rgba(76, 175, 80, 0.45);
+  transform: scale(1.06);
+}
+
+.quiz-card-mini-window {
+  width: 68px;
+  height: 48px;
+  overflow: hidden;
+  position: relative;
+}
+
+.quiz-card-mini-window .quiz-slot-item {
+  height: 48px;
+  font-size: 24px;
+}
+
+.quiz-card-body {
+  background-color: #0e1210;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-left: 4px solid var(--green-bright);
+  padding: 32px 30px;
+  margin-bottom: 28px;
+  min-height: 148px;
+  display: flex;
+  align-items: center;
+  transition: opacity 0.22s ease, transform 0.26s cubic-bezier(0.22, 1, 0.36, 1), filter 0.22s ease;
+}
+
+.quiz-card-body.is-updating {
+  opacity: 0.25;
+  transform: scale(0.97);
+  filter: blur(3px);
+}
+
+.quiz-card-question {
+  font-size: clamp(19px, 2.3vw, 24px);
+  font-weight: 700;
+  line-height: 1.44;
+  color: #ffffff;
+  letter-spacing: -0.01em;
+}
+
+.quiz-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
 }
 
 /* ==========================================================================
@@ -1663,8 +2098,71 @@ button {
     padding: 32px 24px;
   }
 
+  .modal-backdrop {
+    padding: 12px;
+  }
+
+  .modal-dialog {
+    padding: 26px 16px 22px;
+  }
+
+  .modal-title {
+    font-size: 19px;
+    padding-right: 32px;
+  }
+
+  .dbc-grid-wrapper {
+    padding: 10px 8px;
+  }
+
   .dbc-block-row {
-    grid-template-columns: 1fr;
+    grid-template-columns: 46px repeat(5, minmax(0, 1fr));
+    gap: 4px;
+    margin-bottom: 5px;
+  }
+
+  .dbc-block-label {
+    font-size: 9px;
+    letter-spacing: 0.03em;
+  }
+
+  .dbc-plot {
+    padding: 7px 2px;
+    font-size: 10px;
+  }
+
+  .dbc-plot small {
+    font-size: 7.5px;
+    margin-top: 1px;
+  }
+
+  .quiz-section {
+    padding: 56px 0 72px;
+  }
+
+  .quiz-stage-slate {
+    padding: 32px 16px;
+  }
+
+  .quiz-recessed-panel {
+    padding: 32px 20px;
+  }
+
+  .quiz-expanded-card {
+    padding: 30px 22px 26px;
+  }
+
+  .quiz-card-body {
+    padding: 22px 18px;
+    min-height: 126px;
+  }
+
+  .quiz-card-footer {
+    justify-content: center;
+  }
+
+  .btn-quiz-redraw {
+    width: 100%;
   }
 
   .footer-top {
