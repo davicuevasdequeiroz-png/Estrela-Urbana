@@ -218,7 +218,7 @@
     });
   }
 
-  // 6. Seção Interativa de Scrollytelling (383 Frames • Canvas 60fps)
+  // 6. Seção Interativa de Scrollytelling (919 Frames • Canvas 60fps)
   const scrollySection = document.getElementById('metodologia-scrolly');
   const scrollyCanvas = document.getElementById('scrollyCanvas');
   const scrollyCards = Array.from(document.querySelectorAll('.scrolly-card'));
@@ -237,7 +237,7 @@
 
   if (scrollySection && scrollyCanvas) {
     const ctx = scrollyCanvas.getContext('2d', { alpha: false });
-    const TOTAL_FRAMES = 383;
+    const TOTAL_FRAMES = 919;
     const CANVAS_WIDTH = 1080;
     const CANVAS_HEIGHT = 1920;
 
@@ -248,17 +248,20 @@
       ctx.imageSmoothingQuality = 'high';
     }
 
-    // Cronograma exato de fases e intervalos de frames
+    // Cronograma exato de fases e intervalos de frames (001 a 919)
     const PHASES = [
-      { index: 0, step: '01/06', shortLabel: 'COLETA URBANA', start: 1, end: 35 },
-      { index: 1, step: '02/06', shortLabel: 'TRIAGEM E PREPARO', start: 46, end: 110 },
-      { index: 2, step: '03/06', shortLabel: 'PIRÓLISE A 500 °C', start: 116, end: 183 },
-      { index: 3, step: '04/06', shortLabel: 'APLICAÇÃO NO SOLO', start: 184, end: 257 },
-      { index: 4, step: '05/06', shortLabel: 'EXPERIMENTO DBC 5×4', start: 268, end: 330 },
-      { index: 5, step: '06/06', shortLabel: 'CULTURA DO MILHO', start: 332, end: 383 },
+      { index: 0, step: '01/06', shortLabel: 'COLETA URBANA', start: 1, end: 80 },
+      { index: 1, step: '02/06', shortLabel: 'TRIAGEM E PREPARO', start: 102, end: 265 },
+      { index: 2, step: '03/06', shortLabel: 'PIRÓLISE A 500 °C', start: 291, end: 397 },
+      { index: 3, step: '04/06', shortLabel: 'APLICAÇÃO NO SOLO', start: 428, end: 606 },
+      { index: 4, step: '05/06', shortLabel: 'EXPERIMENTO DBC 5×4', start: 658, end: 773 },
+      { index: 5, step: '06/06', shortLabel: 'CULTURA DO MILHO', start: 797, end: 919 },
     ];
 
-    // Armazenamento de imagens carregadas (1..383)
+    // Frames ausentes na numeração sequencial da pasta (evita requisições 404 desnecessárias)
+    const MISSING_FRAMES = new Set([913, 914, 917]);
+
+    // Armazenamento de imagens carregadas (1..919)
     const framesStore = new Array(TOTAL_FRAMES + 1);
     const framesLoaded = new Array(TOTAL_FRAMES + 1).fill(false);
     let frameFolder = 'frame'; // fallback automático para 'frames' se necessário
@@ -365,6 +368,10 @@
     // Carrega um frame individual e agenda redesenho se necessário
     function loadSingleFrame(index, folderToUse) {
       return new Promise((resolve) => {
+        if (MISSING_FRAMES.has(index)) {
+          resolve(false);
+          return;
+        }
         if (framesLoaded[index]) {
           resolve(true);
           return;
@@ -393,7 +400,7 @@
       });
     }
 
-    // Preload inteligente em duas passagens (keyframes espaçados primeiro + preenchimento completo)
+    // Preload inteligente em múltiplas passagens (keyframes espaçados primeiro + preenchimento completo)
     async function startPreloading() {
       let firstOk = await loadSingleFrame(1, frameFolder);
       if (!firstOk) {
@@ -403,9 +410,9 @@
       requestTick();
 
       const priorityQueue = [];
-      const seen = new Set([1]);
+      const seen = new Set([1, ...MISSING_FRAMES]);
 
-      // Passagem 1: Keyframes a cada 8 frames + limites de cada fase para resposta imediata ao scroll rápido
+      // Passagem 1: Limites e pontos centrais de cada uma das 6 fases + keyframes a cada 12 frames
       PHASES.forEach((p) => {
         [p.start, Math.round((p.start + p.end) / 2), p.end].forEach((f) => {
           if (!seen.has(f)) {
@@ -415,14 +422,22 @@
         });
       });
 
-      for (let i = 1; i <= TOTAL_FRAMES; i += 8) {
+      for (let i = 1; i <= TOTAL_FRAMES; i += 12) {
         if (!seen.has(i)) {
           seen.add(i);
           priorityQueue.push(i);
         }
       }
 
-      // Passagem 2: Todos os frames restantes em ordem sequencial
+      // Passagem 2: Keyframes intermediários a cada 4 frames para fluidez rápida em toda a linha do tempo
+      for (let i = 1; i <= TOTAL_FRAMES; i += 4) {
+        if (!seen.has(i)) {
+          seen.add(i);
+          priorityQueue.push(i);
+        }
+      }
+
+      // Passagem 3: Todos os frames restantes em ordem sequencial
       for (let i = 2; i <= TOTAL_FRAMES; i++) {
         if (!seen.has(i)) {
           seen.add(i);
@@ -430,7 +445,7 @@
         }
       }
 
-      const CONCURRENCY = 6;
+      const CONCURRENCY = 8;
       let cursor = 0;
 
       async function worker() {
