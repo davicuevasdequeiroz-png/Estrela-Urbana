@@ -1,0 +1,2399 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script>
+    if (location.protocol !== 'file:' && !location.pathname.endsWith('.html')) {
+      document.write('<base href="' + location.pathname.replace(/\/?$/, '/') + '" />');
+    }
+  </script>
+  <title>Slides • Estrela Urbana — Ciência Viva 2026</title>
+  <link rel="icon" type="image/svg+xml" href="../logo_final/estrela_urbana_simbolo_fundo_escuro.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800&family=Montserrat:wght@700;800;900&family=Source+Sans+3:ital,wght@0,600;0,700;1,600&display=swap"
+    rel="stylesheet"
+    media="print"
+    onload="this.media='all'"
+  />
+  <style>
+    :root {
+      --bg-black: #0b0d0c;
+      --bg-deep: #101613;
+      --bg-slate: #1c2228;
+      --bg-card: rgba(20, 28, 24, 0.92);
+      --bg-card-solid: #151d18;
+      --green-primary: #3b8748;
+      --green-bright: #4caf50;
+      --green-neon: #6ee782;
+      --green-soft: #d8f8de;
+      --gold-corn: #f2c94c;
+      --gold-straw: #dec48e;
+      --earth-brown: #8c5830;
+      --alert-amber: #ff8a3d;
+      --white: #ffffff;
+      --text-light: #e6ece8;
+      --text-muted: #a9b8af;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      background: #050706;
+      color: var(--white);
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      overflow: hidden;
+      -webkit-font-smoothing: antialiased;
+      user-select: none;
+    }
+
+    /* =====================================================================
+       DECK VIEWPORT (1920x1080 SCALED TO SCREEN IN INTERACTIVE MODE)
+       ===================================================================== */
+    .deck-viewport {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      height: 100dvh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .deck-stage {
+      position: relative;
+      width: 1920px;
+      height: 1080px;
+      transform-origin: center center;
+      flex-shrink: 0;
+      box-shadow: 0 30px 90px rgba(0, 0, 0, 0.85);
+    }
+
+    .slide {
+      position: absolute;
+      inset: 0;
+      width: 1920px;
+      height: 1080px;
+      background: var(--bg-black);
+      overflow: hidden;
+      display: none;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .slide.is-active {
+      display: flex;
+    }
+
+    /* =====================================================================
+       TOP BAR & FOOTER HUD (ESTRELA URBANA IDENTITY)
+       ===================================================================== */
+    .slide-topbar {
+      position: relative;
+      z-index: 10;
+      height: 96px;
+      padding: 0 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: linear-gradient(180deg, rgba(11, 13, 12, 0.92) 0%, rgba(11, 13, 12, 0.45) 75%, transparent 100%);
+      border-bottom: 1px solid rgba(76, 175, 80, 0.22);
+    }
+
+    .brand-bar {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .brand-bar img.brand-logo {
+      width: 58px;
+      height: 58px;
+      object-fit: contain;
+      filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.5));
+    }
+
+    .brand-bar-title {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 26px;
+      letter-spacing: 0.12em;
+      color: var(--white);
+      text-transform: uppercase;
+    }
+
+    .brand-bar-sub {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 18px;
+      letter-spacing: 0.08em;
+      color: var(--green-neon);
+      text-transform: uppercase;
+      padding-left: 18px;
+      border-left: 2px solid rgba(110, 231, 130, 0.4);
+    }
+
+    .slide-hud-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 16px;
+      background: rgba(18, 26, 21, 0.9);
+      border: 2px solid rgba(76, 175, 80, 0.55);
+      padding: 12px 28px;
+      border-radius: 999px;
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.45);
+    }
+
+    .hud-step-num {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 24px;
+      color: var(--green-neon);
+      letter-spacing: 0.06em;
+    }
+
+    .hud-step-label {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 20px;
+      color: var(--white);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    /* =====================================================================
+       REUSABLE TYPOGRAPHY & CARDS (ZERO SMALL WORDS!)
+       ===================================================================== */
+    .slide-body {
+      position: relative;
+      z-index: 5;
+      height: 984px;
+      max-height: 984px;
+      min-height: 0;
+      padding: 36px 72px 44px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow: hidden;
+    }
+
+    .eyebrow-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+      align-self: flex-start;
+      background: rgba(59, 135, 72, 0.22);
+      border: 2px solid var(--green-bright);
+      color: var(--green-neon);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 24px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 10px 24px;
+      border-radius: 999px;
+      margin-bottom: 22px;
+    }
+
+    .eyebrow-dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--green-neon);
+      box-shadow: 0 0 14px var(--green-neon);
+    }
+
+    .title-xl {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 86px;
+      line-height: 1.04;
+      letter-spacing: -0.02em;
+      color: var(--white);
+      text-transform: uppercase;
+    }
+
+    .title-lg {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 72px;
+      line-height: 1.06;
+      letter-spacing: -0.015em;
+      color: var(--white);
+      text-transform: uppercase;
+    }
+
+    .accent-green {
+      color: var(--green-neon);
+    }
+
+    .accent-gold {
+      color: var(--gold-corn);
+    }
+
+    .subtitle-lg {
+      font-size: 38px;
+      font-weight: 600;
+      line-height: 1.3;
+      color: var(--text-light);
+    }
+
+    .glass-card {
+      background: var(--bg-card);
+      border: 2px solid rgba(76, 175, 80, 0.45);
+      border-left: 10px solid var(--green-bright);
+      border-radius: 24px;
+      padding: 38px 44px;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.65);
+    }
+
+    .bg-glow {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+      background:
+        radial-gradient(circle at 80% 30%, rgba(76, 175, 80, 0.18) 0%, transparent 55%),
+        radial-gradient(circle at 18% 80%, rgba(222, 196, 142, 0.1) 0%, transparent 50%);
+    }
+
+    .photo-frame {
+      position: relative;
+      border-radius: 26px;
+      overflow: hidden;
+      border: 3px solid rgba(110, 231, 130, 0.55);
+      box-shadow: 0 28px 65px rgba(0, 0, 0, 0.7);
+      background: #0e1310;
+      min-height: 0;
+      max-height: 100%;
+      height: 100%;
+    }
+
+    .photo-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .photo-badge {
+      position: absolute;
+      bottom: 22px;
+      left: 22px;
+      right: 22px;
+      background: rgba(11, 13, 12, 0.9);
+      border: 2px solid var(--green-bright);
+      border-left: 8px solid var(--green-neon);
+      padding: 16px 24px;
+      border-radius: 16px;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 26px;
+      color: var(--white);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    /* =====================================================================
+       SLIDE 1: CAPA HERO (ESTILO SITE ESTRELA URBANA)
+       ===================================================================== */
+    .s1-aerial {
+      position: relative;
+      width: 100%;
+      height: 520px;
+      overflow: hidden;
+      border-bottom: 5px solid var(--green-bright);
+    }
+
+    .s1-aerial img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+
+    .s1-aerial-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(11,13,12,0.55) 0%, rgba(11,13,12,0.05) 35%, rgba(11,13,12,0.88) 100%);
+    }
+
+    .s1-top-badges {
+      position: absolute;
+      top: 34px;
+      left: 72px;
+      right: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      z-index: 5;
+    }
+
+    .s1-pill-row {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .s1-inst-pill {
+      background: rgba(11, 13, 12, 0.88);
+      border: 2px solid rgba(110, 231, 130, 0.6);
+      padding: 12px 26px;
+      border-radius: 999px;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 22px;
+      letter-spacing: 0.08em;
+      color: var(--white);
+      text-transform: uppercase;
+    }
+
+    .s1-bottom {
+      flex: 1;
+      background: var(--bg-black);
+      padding: 42px 72px 52px;
+      display: grid;
+      grid-template-columns: 1.25fr 0.95fr;
+      gap: 56px;
+      align-items: center;
+      position: relative;
+    }
+
+    .s1-left h1 {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 86px;
+      line-height: 1.02;
+      color: var(--white);
+      text-transform: uppercase;
+      margin-top: 10px;
+    }
+
+    .s1-right-card {
+      background: #151d18;
+      border: 2px solid var(--green-bright);
+      border-left: 10px solid var(--green-neon);
+      border-radius: 24px;
+      padding: 36px 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+    }
+
+    .s1-right-card p {
+      font-size: 34px;
+      font-weight: 700;
+      line-height: 1.32;
+      color: var(--white);
+    }
+
+    .s1-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .s1-tag {
+      background: rgba(76, 175, 80, 0.2);
+      border: 2px solid var(--green-neon);
+      color: var(--green-neon);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 22px;
+      padding: 10px 22px;
+      border-radius: 999px;
+      text-transform: uppercase;
+    }
+
+    /* =====================================================================
+       SLIDE 2: O PROBLEMA DAS PODAS URBANAS (BIG NUMBERS)
+       ===================================================================== */
+    .s2-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      grid-template-rows: minmax(0, 1fr);
+      gap: 52px;
+      height: 904px;
+      max-height: 904px;
+      min-height: 0;
+      align-items: stretch;
+    }
+
+    .s2-left {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 26px;
+    }
+
+    .stat-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+    }
+
+    .stat-box {
+      background: #141c17;
+      border: 3px solid rgba(76, 175, 80, 0.5);
+      border-top: 10px solid var(--green-neon);
+      border-radius: 24px;
+      padding: 32px 34px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .stat-box.stat-alert {
+      background: #1f1714;
+      border-color: rgba(255, 138, 61, 0.6);
+      border-top-color: var(--alert-amber);
+    }
+
+    .stat-number {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 98px;
+      line-height: 1;
+      color: var(--green-neon);
+    }
+
+    .stat-box.stat-alert .stat-number {
+      color: var(--alert-amber);
+    }
+
+    .stat-label {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 30px;
+      line-height: 1.2;
+      color: var(--white);
+      text-transform: uppercase;
+    }
+
+    .s2-warning-banner {
+      background: linear-gradient(90deg, #2b1812 0%, #1c1512 100%);
+      border: 3px solid var(--alert-amber);
+      border-left: 12px solid var(--alert-amber);
+      border-radius: 22px;
+      padding: 28px 36px;
+      display: flex;
+      align-items: center;
+      gap: 28px;
+    }
+
+    .s2-warning-banner .warn-big {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 72px;
+      color: var(--gold-corn);
+      flex-shrink: 0;
+    }
+
+    .s2-warning-banner .warn-text {
+      font-size: 32px;
+      font-weight: 700;
+      line-height: 1.25;
+      color: var(--white);
+    }
+
+    /* =====================================================================
+       SLIDE 3: MATÉRIA-PRIMA (3 ETAPAS VISUAIS GRANDES)
+       ===================================================================== */
+    .s3-steps {
+      display: grid;
+      grid-template-columns: 1fr 80px 1fr 80px 1fr;
+      align-items: stretch;
+      gap: 16px;
+      margin-top: 28px;
+      flex: 1;
+    }
+
+    .step-card {
+      background: #141c17;
+      border: 3px solid rgba(110, 231, 130, 0.55);
+      border-radius: 28px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 24px 55px rgba(0, 0, 0, 0.6);
+    }
+
+    .step-photo {
+      height: 360px;
+      width: 100%;
+      position: relative;
+      overflow: hidden;
+      border-bottom: 4px solid var(--green-bright);
+    }
+
+    .step-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .step-num-badge {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      background: var(--green-bright);
+      color: var(--bg-black);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 30px;
+      padding: 10px 24px;
+      border-radius: 999px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+    }
+
+    .step-info {
+      padding: 32px 34px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      flex: 1;
+      justify-content: center;
+    }
+
+    .step-title {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 40px;
+      color: var(--green-neon);
+      text-transform: uppercase;
+      line-height: 1.1;
+    }
+
+    .step-desc {
+      font-size: 31px;
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1.28;
+    }
+
+    .step-pill {
+      align-self: flex-start;
+      margin-top: 6px;
+      background: rgba(242, 201, 76, 0.16);
+      border: 2px solid var(--gold-corn);
+      color: var(--gold-corn);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 24px;
+      padding: 8px 20px;
+      border-radius: 999px;
+      text-transform: uppercase;
+    }
+
+    .step-arrow {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .step-arrow-circle {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      background: var(--green-bright);
+      color: var(--bg-black);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 44px;
+      font-weight: 900;
+      box-shadow: 0 0 28px rgba(110, 231, 130, 0.65);
+    }
+
+    /* =====================================================================
+       SLIDE 4: MATERIAIS - OS "DOIS AZUIS" (FOTOS REAIS)
+       ===================================================================== */
+    .s4-grid {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 52px;
+      height: 100%;
+      align-items: center;
+    }
+
+    .s4-photos {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+      height: 760px;
+    }
+
+    .s4-right {
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+
+    .spec-list {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .spec-item {
+      background: #151f19;
+      border: 2px solid rgba(110, 231, 130, 0.45);
+      border-left: 10px solid var(--green-neon);
+      border-radius: 20px;
+      padding: 24px 32px;
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .spec-icon {
+      min-width: 98px;
+      height: 68px;
+      padding: 0 16px;
+      border-radius: 18px;
+      background: rgba(76, 175, 80, 0.22);
+      border: 2px solid var(--green-neon);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 28px;
+      color: var(--green-neon);
+      flex-shrink: 0;
+    }
+
+    .spec-text strong {
+      display: block;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 32px;
+      color: var(--white);
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .spec-text span {
+      font-size: 28px;
+      font-weight: 600;
+      color: var(--text-light);
+    }
+
+    /* =====================================================================
+       SLIDE 5: POR QUE O BIOCHAR FUNCIONA? (4 SUPER PODERES NO SOLO)
+       ===================================================================== */
+    .s5-layout {
+      display: grid;
+      grid-template-columns: 0.85fr 1.15fr;
+      grid-template-rows: minmax(0, 1fr);
+      gap: 48px;
+      height: 904px;
+      max-height: 904px;
+      min-height: 0;
+      align-items: stretch;
+    }
+
+    .s5-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 24px;
+      height: 100%;
+      min-height: 0;
+    }
+
+    .power-card {
+      background: #141d18;
+      border: 3px solid rgba(110, 231, 130, 0.5);
+      border-top: 10px solid var(--green-neon);
+      border-radius: 24px;
+      padding: 32px 34px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .power-card:nth-child(2) {
+      border-top-color: var(--gold-corn);
+    }
+
+    .power-card:nth-child(3) {
+      border-top-color: #56ccf2;
+    }
+
+    .power-card:nth-child(4) {
+      border-top-color: #bb86fc;
+    }
+
+    .power-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 74px;
+      height: 74px;
+      border-radius: 20px;
+      background: rgba(110, 231, 130, 0.16);
+      border: 2px solid var(--green-neon);
+      font-size: 40px;
+      margin-bottom: 14px;
+    }
+
+    .power-title {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 38px;
+      color: var(--white);
+      text-transform: uppercase;
+      line-height: 1.1;
+    }
+
+    .power-desc {
+      font-size: 29px;
+      font-weight: 600;
+      line-height: 1.28;
+      color: var(--text-light);
+      margin-top: 10px;
+    }
+
+    /* =====================================================================
+       SLIDE 6: NOSSO SOLO (FOTOS REAIS + ORTOGRAFIA CORRIGIDA)
+       ===================================================================== */
+    .s6-grid {
+      display: grid;
+      grid-template-columns: 1.12fr 0.88fr;
+      gap: 48px;
+      height: 100%;
+      align-items: center;
+    }
+
+    .s6-photos {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+      height: 770px;
+    }
+
+    .s6-quote-box {
+      background: #151f19;
+      border: 3px solid var(--green-bright);
+      border-left: 12px solid var(--green-neon);
+      border-radius: 26px;
+      padding: 40px 44px;
+      margin: 26px 0;
+    }
+
+    .s6-quote-box p {
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 48px;
+      font-weight: 700;
+      line-height: 1.22;
+      color: var(--white);
+    }
+
+    .s6-metrics {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 22px;
+    }
+
+    .s6-metric-pill {
+      background: #1c2520;
+      border: 2px solid var(--gold-corn);
+      border-radius: 20px;
+      padding: 22px 26px;
+    }
+
+    .s6-metric-pill strong {
+      display: block;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 46px;
+      color: var(--gold-corn);
+      line-height: 1.05;
+    }
+
+    .s6-metric-pill span {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 23px;
+      color: var(--white);
+      text-transform: uppercase;
+    }
+
+    /* =====================================================================
+       SLIDE 7: TRANSIÇÃO DE IMPACTO - PLANTAÇÃO DE MILHO
+       ===================================================================== */
+    .s7-bg {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+    }
+
+    .s7-bg img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .s7-overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      background: linear-gradient(90deg, rgba(11,13,12,0.94) 0%, rgba(11,13,12,0.82) 58%, rgba(11,13,12,0.45) 100%);
+    }
+
+    .s7-content {
+      position: relative;
+      z-index: 6;
+      max-width: 1420px;
+      display: flex;
+      flex-direction: column;
+      gap: 34px;
+    }
+
+    .s7-pills {
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+      margin-top: 12px;
+    }
+
+    .s7-pill {
+      background: rgba(20, 30, 24, 0.95);
+      border: 3px solid var(--green-neon);
+      border-radius: 22px;
+      padding: 24px 36px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      min-width: 340px;
+    }
+
+    .s7-pill strong {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 44px;
+      color: var(--gold-corn);
+      text-transform: uppercase;
+    }
+
+    .s7-pill span {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 24px;
+      color: var(--white);
+      text-transform: uppercase;
+    }
+
+    /* =====================================================================
+       SLIDE 8: DADOS - OS 5 TRATAMENTOS (SUBSTITUI TABELA PEQUENA)
+       ===================================================================== */
+    .s8-cards {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 24px;
+      margin-top: 28px;
+      flex: 1;
+    }
+
+    .treat-card {
+      background: #141e18;
+      border: 3px solid rgba(110, 231, 130, 0.55);
+      border-top: 12px solid var(--green-neon);
+      border-radius: 26px;
+      padding: 32px 28px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: 0 22px 50px rgba(0, 0, 0, 0.6);
+    }
+
+    .treat-card.treat-inc {
+      background: #17261d;
+      border-color: var(--gold-corn);
+      border-top-color: var(--gold-corn);
+    }
+
+    .treat-card.treat-ctrl {
+      background: #1c1f24;
+      border-color: #9aa5b1;
+      border-top-color: #9aa5b1;
+    }
+
+    .treat-code {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--green-neon);
+      color: var(--bg-black);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 42px;
+      padding: 10px 26px;
+      border-radius: 16px;
+      align-self: flex-start;
+    }
+
+    .treat-card.treat-inc .treat-code {
+      background: var(--gold-corn);
+    }
+
+    .treat-card.treat-ctrl .treat-code {
+      background: #cfd8e3;
+    }
+
+    .treat-dose-block {
+      margin: 22px 0;
+    }
+
+    .treat-dose {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 64px;
+      line-height: 1;
+      color: var(--white);
+    }
+
+    .treat-unit {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 32px;
+      color: var(--green-neon);
+      margin-top: 6px;
+    }
+
+    .treat-card.treat-inc .treat-unit {
+      color: var(--gold-corn);
+    }
+
+    .treat-card.treat-ctrl .treat-unit {
+      color: #cfd8e3;
+    }
+
+    .treat-ha {
+      display: inline-block;
+      margin-top: 12px;
+      background: rgba(255, 255, 255, 0.08);
+      padding: 8px 18px;
+      border-radius: 12px;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 24px;
+      color: var(--text-light);
+    }
+
+    .treat-mode {
+      background: rgba(11, 13, 12, 0.85);
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      border-radius: 18px;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .treat-mode-title {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 28px;
+      color: var(--white);
+      text-transform: uppercase;
+      line-height: 1.15;
+    }
+
+    .treat-mode-sub {
+      font-size: 23px;
+      font-weight: 700;
+      color: var(--green-neon);
+      margin-top: 6px;
+      text-transform: uppercase;
+    }
+
+    .treat-card.treat-inc .treat-mode-sub {
+      color: var(--gold-corn);
+    }
+
+    .treat-card.treat-ctrl .treat-mode-sub {
+      color: #cfd8e3;
+    }
+
+    /* =====================================================================
+       SLIDE 9: COMO APLICAMOS? SUPERFÍCIE VS INCORPORADO
+       ===================================================================== */
+    .s9-compare {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 44px;
+      margin-top: 26px;
+      flex: 1;
+    }
+
+    .mode-panel {
+      background: #141d18;
+      border: 3px solid var(--green-neon);
+      border-radius: 28px;
+      padding: 40px 44px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .mode-panel.mode-inc {
+      background: #1b2118;
+      border-color: var(--gold-corn);
+    }
+
+    .mode-diagram {
+      height: 250px;
+      border-radius: 22px;
+      overflow: hidden;
+      border: 2px solid rgba(255,255,255,0.2);
+      display: flex;
+      flex-direction: column;
+      margin: 22px 0;
+    }
+
+    .soil-layer-top {
+      height: 75px;
+      background: #111312;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 28px;
+      color: var(--green-neon);
+      letter-spacing: 0.06em;
+      border-bottom: 4px dashed var(--green-neon);
+    }
+
+    .soil-layer-earth {
+      flex: 1;
+      background: linear-gradient(180deg, #6b4423 0%, #4a2e16 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 28px;
+      color: #f3e9d2;
+    }
+
+    .soil-layer-mixed {
+      flex: 1;
+      background: repeating-linear-gradient(
+        135deg,
+        #181b19,
+        #181b19 24px,
+        #59381c 24px,
+        #59381c 48px
+      );
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .soil-mixed-pill {
+      background: rgba(11, 13, 12, 0.92);
+      border: 3px solid var(--gold-corn);
+      padding: 16px 30px;
+      border-radius: 16px;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 30px;
+      color: var(--gold-corn);
+      text-transform: uppercase;
+    }
+
+    /* =====================================================================
+       SLIDE 10: DELINEAMENTO DBC 5x4 EM CAMPO (CROQUI + FOTO REAL)
+       ===================================================================== */
+    .s10-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      grid-template-rows: minmax(0, 1fr);
+      gap: 44px;
+      height: 904px;
+      max-height: 904px;
+      min-height: 0;
+      align-items: stretch;
+    }
+
+    .dbc-board {
+      background: #141c17;
+      border: 3px solid rgba(110, 231, 130, 0.5);
+      border-radius: 26px;
+      padding: 30px 34px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .dbc-rows {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin: 18px 0;
+    }
+
+    .dbc-row {
+      display: grid;
+      grid-template-columns: 170px repeat(5, 1fr);
+      gap: 14px;
+      align-items: center;
+    }
+
+    .dbc-bloco-name {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 28px;
+      color: var(--green-neon);
+      text-transform: uppercase;
+    }
+
+    .dbc-cell {
+      height: 92px;
+      border-radius: 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Montserrat', sans-serif;
+      border: 2px solid rgba(255,255,255,0.28);
+    }
+
+    .dbc-cell strong {
+      font-size: 32px;
+      font-weight: 900;
+      color: var(--white);
+      line-height: 1;
+    }
+
+    .dbc-cell span {
+      font-size: 20px;
+      font-weight: 800;
+      margin-top: 4px;
+      text-transform: uppercase;
+    }
+
+    .cell-sup {
+      background: #1e4627;
+      border-color: var(--green-neon);
+    }
+    .cell-sup span { color: var(--green-neon); }
+
+    .cell-inc {
+      background: #142419;
+      border-color: var(--gold-corn);
+    }
+    .cell-inc span { color: var(--gold-corn); }
+
+    .cell-ctrl {
+      background: #4e331e;
+      border-color: var(--gold-straw);
+    }
+    .cell-ctrl span { color: #f3e9d2; }
+
+    /* =====================================================================
+       SLIDE 11: O QUE MEDIMOS NO MILHO? (ATRIBUTOS + RSTUDIO)
+       ===================================================================== */
+    .s11-grid {
+      display: grid;
+      grid-template-columns: 0.82fr 1.18fr;
+      grid-template-rows: minmax(0, 1fr);
+      gap: 44px;
+      height: 904px;
+      max-height: 904px;
+      min-height: 0;
+      align-items: stretch;
+    }
+
+    .attr-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 22px;
+    }
+
+    .attr-card {
+      background: #141d18;
+      border: 3px solid rgba(110, 231, 130, 0.5);
+      border-left: 10px solid var(--green-neon);
+      border-radius: 22px;
+      padding: 26px 30px;
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .attr-card:nth-child(even) {
+      border-left-color: var(--gold-corn);
+    }
+
+    .attr-emoji {
+      width: 76px;
+      height: 76px;
+      border-radius: 20px;
+      background: rgba(255,255,255,0.07);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 42px;
+      flex-shrink: 0;
+    }
+
+    .attr-info h3 {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 34px;
+      color: var(--white);
+      text-transform: uppercase;
+    }
+
+    .attr-info p {
+      font-size: 26px;
+      font-weight: 600;
+      color: var(--text-light);
+      margin-top: 4px;
+    }
+
+    .rstudio-bar {
+      background: linear-gradient(90deg, #162436 0%, #141d18 100%);
+      border: 3px solid #56ccf2;
+      border-radius: 22px;
+      padding: 26px 34px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 22px;
+    }
+
+    .rstudio-badge {
+      background: #56ccf2;
+      color: #0b0d0c;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 28px;
+      padding: 12px 26px;
+      border-radius: 14px;
+      text-transform: uppercase;
+    }
+
+    /* =====================================================================
+       SLIDE 12: ENCERRAMENTO & ESTANDE ESTRELA URBANA
+       ===================================================================== */
+    .s12-bg {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+    }
+
+    .s12-bg img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .s12-content {
+      position: relative;
+      z-index: 6;
+      height: 100%;
+      padding: 52px 72px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .s12-hero-box {
+      background: rgba(11, 13, 12, 0.9);
+      border: 3px solid var(--green-neon);
+      border-radius: 28px;
+      padding: 38px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 40px;
+      box-shadow: 0 28px 65px rgba(0,0,0,0.75);
+    }
+
+    .s12-team-grid {
+      display: grid;
+      grid-template-columns: 1.35fr 0.65fr;
+      gap: 32px;
+    }
+
+    .team-card {
+      background: rgba(18, 25, 21, 0.95);
+      border: 3px solid rgba(110, 231, 130, 0.55);
+      border-left: 10px solid var(--green-neon);
+      border-radius: 24px;
+      padding: 32px 38px;
+    }
+
+    .team-names {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 14px;
+      font-size: 32px;
+      font-weight: 800;
+      color: var(--white);
+    }
+
+    .site-cta-card {
+      background: linear-gradient(135deg, #1b3b22 0%, #111c15 100%);
+      border: 3px solid var(--gold-corn);
+      border-radius: 24px;
+      padding: 32px 38px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    /* =====================================================================
+       ON-SCREEN STAND CONTROLS (HIDDEN WHEN PRINTING TO PDF)
+       ===================================================================== */
+    .deck-controls {
+      position: fixed;
+      bottom: 20px;
+      right: 24px;
+      z-index: 999;
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      background: rgba(11, 13, 12, 0.92);
+      border: 2px solid rgba(110, 231, 130, 0.55);
+      padding: 10px 16px;
+      border-radius: 999px;
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.65);
+      backdrop-filter: blur(10px);
+    }
+
+    .ctrl-btn {
+      background: #1a261e;
+      color: var(--white);
+      border: 1px solid rgba(110, 231, 130, 0.4);
+      padding: 8px 16px;
+      border-radius: 999px;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 13px;
+      text-decoration: none;
+      cursor: pointer;
+      transition: 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .ctrl-btn:hover, .ctrl-btn.is-playing {
+      background: var(--green-bright);
+      color: var(--bg-black);
+    }
+
+    .ctrl-btn.ctrl-gold {
+      border-color: var(--gold-corn);
+      color: var(--gold-corn);
+    }
+
+    .ctrl-btn.ctrl-gold:hover {
+      background: var(--gold-corn);
+      color: var(--bg-black);
+    }
+
+    .ctrl-counter {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 14px;
+      color: var(--green-neon);
+      padding: 0 8px;
+    }
+
+    /* =====================================================================
+       PRINT / PDF MODE (EXACT 1920x1080 PAGES)
+       ===================================================================== */
+    @page {
+      size: 1920px 1080px;
+      margin: 0;
+    }
+
+    @media print {
+      html, body {
+        width: 1920px;
+        height: auto;
+        overflow: visible;
+        background: #0b0d0c;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+      .deck-viewport {
+        width: 1920px;
+        height: auto;
+        display: block;
+        overflow: visible;
+      }
+      .deck-stage {
+        width: 1920px;
+        height: auto;
+        transform: none !important;
+      }
+      .slide {
+        position: relative !important;
+        display: flex !important;
+        width: 1920px !important;
+        height: 1080px !important;
+        page-break-after: always;
+        break-after: page;
+      }
+      .deck-controls {
+        display: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="deck-viewport">
+    <div class="deck-stage" id="deckStage">
+
+      <!-- =================================================================
+           SLIDE 01: CAPA HERO (INSPIRADA NO SITE ESTRELA URBANA)
+           ================================================================= -->
+      <section class="slide is-active" data-slide="1">
+        <div class="s1-aerial">
+          <img src="../assets/images/hero-aerial-plots.jpg" alt="Vista aérea de faixas de milho, palha e solo com biochar" />
+          <div class="s1-aerial-overlay"></div>
+          <div class="s1-top-badges">
+            <div class="brand-bar">
+              <img src="../logo_final/estrela_urbana_simbolo_fundo_escuro.svg" alt="Estrela Urbana" class="brand-logo" style="width:74px;height:74px;" />
+              <div>
+                <div class="brand-bar-title" style="font-size:32px;">ESTRELA URBANA</div>
+                <div style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:20px;color:var(--green-neon);letter-spacing:0.1em;">PROJETO CIÊNCIA VIVA • 2026</div>
+              </div>
+            </div>
+            <div class="s1-pill-row">
+              <span class="s1-inst-pill">E.E. Frei Egídio Parisi</span>
+              <span class="s1-inst-pill">UFU • DICA</span>
+              <span class="s1-inst-pill" style="border-color:var(--gold-corn);color:var(--gold-corn);">01 / 12</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="s1-bottom">
+          <div class="s1-left">
+            <div class="eyebrow-tag">
+              <span class="eyebrow-dot"></span>
+              <span>DO RESÍDUO URBANO AO SOLO FÉRTIL</span>
+            </div>
+            <h1>COMO ESTÁ SENDO<br /><span class="accent-green">O NOSSO PROCESSO</span></h1>
+          </div>
+
+          <div class="s1-right-card">
+            <p>
+              Transformamos <strong class="accent-green">podas de árvores urbanas</strong> em <strong class="accent-gold">biocarvão (biochar)</strong> para turbinar o solo na plantação de milho <em>(Zea mays L.)</em>.
+            </p>
+            <div class="s1-tags">
+              <span class="s1-tag">Pirólise a 500 °C</span>
+              <span class="s1-tag">20 Parcelas (DBC 5×4)</span>
+              <span class="s1-tag">Milho Doce Itapuã</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =================================================================
+           SLIDE 02: O PROBLEMA DAS PODAS URBANAS (BIG NUMBERS)
+           ================================================================= -->
+      <section class="slide" data-slide="2">
+        <div class="bg-glow"></div>
+        <header class="slide-topbar">
+          <div class="brand-bar">
+            <img src="../logo_final/estrela_urbana_simbolo_fundo_escuro.svg" alt="Estrela Urbana" class="brand-logo" />
+            <span class="brand-bar-title">ESTRELA URBANA</span>
+            <span class="brand-bar-sub">A PROBLEMÁTICA AMBIENTAL</span>
+          </div>
+          <div class="slide-hud-pill">
+            <span class="hud-step-num">02/12</span>
+            <span class="hud-step-label">POR QUE COMEÇAMOS?</span>
+          </div>
+        </header>
+
+        <div class="slide-body">
+          <div class="s2-grid">
+            <div class="s2-left">
+              <div>
+                <div class="eyebrow-tag">
+                  <span class="eyebrow-dot"></span>
+                  <span>01 • COLETA URBANA E DESPERDÍCIO</span>
+                </div>
+                <h2 class="title-lg">O PROBLEMA DAS<br /><span class="accent-green">PODAS URBANAS</span></h2>
+              </div>
+
+              <div class="stat-row">
+                <div class="stat-box">
+                  <div class="stat-number">45,3%</div>
+                  <div class="stat-label">De todo o lixo urbano no Brasil é resíduo orgânico / verde</div>
+                </div>
+                <div class="stat-box stat-alert">
+                  <div class="stat-number">1% a 2%</div>
+                  <div class="stat-label">Apenas é reciclado ou reaproveitado hoje</div>
+                </div>
+              </div>
+
+              <div class="s2-warning-banner">
+                <div class="warn-big">44%</div>
+                <div class="warn-text">
+                  Vão parar em <strong>aterros ou lixões</strong> — gerando poluição, risco de enchentes e pragas urbanas.
+                </div>
+              </div>
+            </div>
+
+            <div class="photo-frame">
+              <img src="../frame/frame_001.jpg" alt="Coleta de podas urbanas" />
+              <div class="photo-badge">
+                NOSSA MISSÃO: TRANSFORMAR ESSE RESÍDUO EM BIOINSUMO AGRÍCOLA
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =================================================================
+           SLIDE 03: MATÉRIA-PRIMA (UPGRADE VISUAL DO SLIDE 4 ORIGINAL)
+           ================================================================= -->
+      <section class="slide" data-slide="3">
+        <div class="bg-glow"></div>
+        <header class="slide-topbar">
+          <div class="brand-bar">
+            <img src="../logo_final/estrela_urbana_simbolo_fundo_escuro.svg" alt="Estrela Urbana" class="brand-logo" />
+            <span class="brand-bar-title">ESTRELA URBANA</span>
+            <span class="brand-bar-sub">CICLO DE TRANSFORMAÇÃO</span>
+          </div>
+          <div class="slide-hud-pill">
+            <span class="hud-step-num">03/12</span>
+            <span class="hud-step-label">MATÉRIA-PRIMA</span>
+          </div>
+        </header>
+
+        <div class="slide-body">
+          <div>
+            <div class="eyebrow-tag">
+              <span class="eyebrow-dot"></span>
+              <span>02 • DO GALHO PODADO AO CONDICIONADOR DE SOLO</span>
+            </div>
+            <h2 class="title-lg">MATÉRIA-PRIMA: <span class="accent-green">COMO SURGE O BIOCHAR</span></h2>
+          </div>
+
+          <div class="s3-steps">
+            <!-- Passo 1 -->
+            <div class="step-card">
+              <div class="step-photo">
+                <img src="../frame/frame_180.jpg" alt="Podas orgânicas separadas" />
+                <span class="step-num-badge">ETAPA 1</span>
+              </div>
+              <div class="step-info">
+                <div class="step-title">PODAS ORGÂNICAS</div>
+                <div class="step-desc">Coletadas na escola, limpas sem plástico e separadas em folhas e madeira.</div>
+                <span class="step-pill">LOTES DE 2,5 KG</span>
+              </div>
+            </div>
+
+            <div class="step-arrow">
+              <div class="step-arrow-circle">&rarr;</div>
+            </div>
+
+            <!-- Passo 2 -->
+            <div class="step-card">
+              <div class="step-photo">
+                <img src="../frame/frame_340.jpg" alt="Pirólise controlada" />
+                <span class="step-num-badge" style="background:var(--gold-corn);">ETAPA 2</span>
+              </div>
+              <div class="step-info">
+                <div class="step-title" style="color:var(--gold-corn);">É PIROLISADO</div>
+                <div class="step-desc">Queima térmica controlada dentro do reator fechado com baixa presença de oxigênio.</div>
+                <span class="step-pill">CERCA DE 500 °C</span>
+              </div>
+            </div>
+
+            <div class="step-arrow">
+              <div class="step-arrow-circle">&rarr;</div>
+            </div>
+
+            <!-- Passo 3 -->
+            <div class="step-card">
+              <div class="step-photo">
+                <img src="../assets/images/card-pirolise-biochar.jpg" alt="Resultado no Biochar" />
+                <span class="step-num-badge">ETAPA 3</span>
+              </div>
+              <div class="step-info">
+                <div class="step-title">RESULTA NO BIOCHAR</div>
+                <div class="step-desc">Biocarvão super poroso que prende carbono e guarda água e nutrientes no solo.</div>
+                <span class="step-pill">100% SUSTENTÁVEL</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =================================================================
+           SLIDE 04: MATERIAIS - OS "DOIS AZUIS" (FOTOS REAIS EXTRAÍDAS)
+           ================================================================= -->
+      <section class="slide" data-slide="4">
+        <div class="bg-glow"></div>
+        <header class="slide-topbar">
+          <div class="brand-bar">
+            <img src="../logo_final/estrela_urbana_simbolo_fundo_escuro.svg" alt="Estrela Urbana" class="brand-logo" />
+            <span class="brand-bar-title">ESTRELA URBANA</span>
+            <span class="brand-bar-sub">ENGENHARIA DO REATOR</span>
+          </div>
+          <div class="slide-hud-pill">
+            <span class="hud-step-num">04/12</span>
+            <span class="hud-step-label">MATERIAIS</span>
+          </div>
+        </header>
+
+        <div class="slide-body">
+          <div class="s4-grid">
+            <div class="s4-photos">
+              <div class="photo-frame">
+                <img src="assets/real_photo_3.jpg" alt="Cilindro azul interno com biomassa" />
+                <div class="photo-badge">1. CÂMARA INTERNA (POUCO O₂)</div>
+              </div>
+              <div class="photo-frame">
+                <img src="assets/real_photo_4.jpg" alt="Tambor azul externo com chaminé" />
+                <div class="photo-badge">2. FORNALHA EXTERNA + CHAMINÉ</div>
+              </div>
+            </div>
+
+            <div class="s4-right">
+              <div>
+                <div class="eyebrow-tag">
+                  <span class="eyebrow-dot"></span>
+                  <span>03 • REATOR TUBULAR METÁLICO</span>
+                </div>
+                <h2 class="title-xl">MATERIAIS:<br /><span class="accent-green">OS "DOIS AZUIS"</span></h2>
+              </div>
+
+              <div class="glass-card" style="border-left-color:var(--gold-corn);">
+                <p style="font-size:38px;font-weight:800;line-height:1.25;color:var(--white);">
+                  “Para tudo isso acontecer, esses <span class="accent-gold">dois azuis</span> são a base do nosso projeto.”
+                </p>
+              </div>
+
+              <div class="spec-list">
+                <div class="spec-item">
+                  <div class="spec-icon">500°</div>
+                  <div class="spec-text">
+                    <strong>ALTA TEMPERATURA SEM VIRAR CINZA</strong>
+                    <span>O cilindro interno cozinha a poda sem oxigênio direto.</span>
+                  </div>
+                </div>
+                <div class="spec-item">
+                  <div class="spec-icon">2,5kg</div>
+                  <div class="spec-text">
+                    <strong>RENDIMENTO GRAVIMÉTRICO MEDIDO</strong>
+                    <span>Pesamos a biomassa seca antes e o biocarvão depois.</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =================================================================
+           SLIDE 05: POR QUE O BIOCHAR FUNCIONA NO SOLO?
+           ================================================================= -->
+      <section class="slide" data-slide="5">
+        <div class="bg-glow"></div>
+        <header class="slide-topbar">
+          <div class="brand-bar">
+            <img src="../logo_final/estrela_urbana_simbolo_fundo_escuro.svg" alt="Estrela Urbana" class="brand-logo" />
+            <span class="brand-bar-title">ESTRELA URBANA</span>
+            <span class="brand-bar-sub">BENEFÍCIOS NO SOLO</span>
+          </div>
+          <div class="slide-hud-pill">
+            <span class="hud-step-num">05/12</span>
+            <span class="hud-step-label">POR QUE BIOCHAR?</span>
+          </div>
+        </header>
+
+        <div class="slide-body">
+          <div class="s5-layout">
+            <div style="display:flex;flex-direction:column;gap:20px;height:100%;min-height:0;">
+              <div>
+                <div class="eyebrow-tag">
+                  <span class="eyebrow-dot"></span>
+                  <span>ESTRUTURA POROSA INTELIGENTE</span>
+                </div>
+                <h2 class="title-lg" style="font-size:64px;">O QUE O <span class="accent-green">BIOCHAR</span><br />FAZ NA TERRA?</h2>
+              </div>
+
+              <div class="photo-frame" style="flex:1;min-height:0;">
+                <img src="../frame/frame_520.jpg" alt="Aplicação do biochar no solo" />
+                <div class="photo-badge">CONDICIONADOR FÍSICO E BIOLÓGICO</div>
+              </div>
+            </div>
+
+            <div class="s5-cards">
+              <div class="power-card">
+                <div>
+                  <div class="power-badge">💧</div>
+                  <div class="power-title">ESPONJA DE ÁGUA</div>
+                  <p class="power-desc">Seus microporos guardam água e protegem o milho contra dias secos.</p>
+                </div>
+              </div>
+
+              <div class="power-card">
+                <div>
+                  <div class="power-badge" style="border-color:var(--gold-corn);">🌱</div>
+                  <div class="power-title" style="color:var(--gold-corn);">MAIS NUTRIENTES</div>
+                  <p class="power-desc">Equilibra o pH do solo e evita que o adubo se perca com a chuva.</p>
+                </div>
+              </div>
+
+              <div class="power-card">
+                <div>
+                  <div class="power-badge" style="border-color:#56ccf2;">🌍</div>
+                  <div class="power-title" style="color:#56ccf2;">PRENDE CARBONO</div>
+                  <p class="power-desc">Em vez de virar fumaça no ar, o carbono fica preso no solo por anos.</p>
+                </div>
+              </div>
+
+              <div class="power-card">
+                <div>
+                  <div class="power-badge" style="border-color:#bb86fc;">🛡️</div>
+                  <div class="power-title" style="color:#e2c6ff;">RAÍZES FORTES</div>
+                  <p class="power-desc">Aumenta a vida útil do solo (microbiota) e reduz microrganismos nocivos.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =================================================================
+           SLIDE 06: NOSSO SOLO (FOTOS REAIS EXTRAÍDAS + TEXTO CORRIGIDO)
+           ================================================================= -->
+      <section class="slide" data-slide="6">
+        <div class="bg-glow"></div>
+        <header class="slide-topbar">
+          <div class="brand-bar">
+            <img src="../logo_final/estrela_urbana_simbolo_fundo_escuro.svg" alt="Estrela Urbana" class="brand-logo" />
+            <span class="brand-bar-title">ESTRELA URBANA</span>
+            <span class="brand-bar-sub">ÁREA EXPERIMENTAL NA ESCOLA</span>
+          </div>
+          <div class="slide-hud-pill">
+            <span class="hud-step-num">06/12</span>
+            <span class="hud-step-label">PREPARO DO SOLO</span>
+          </div>
+        </header>
+
+        <div class="slide-body">
+          <div class="s6-grid">
+            <div class="s6-photos">
+              <div class="photo-frame">
+                <img src="assets/real_photo_1.jpg" alt="Preparo da área experimental na E.E. Frei Egídio Parisi" />
+                <div class="photo-badge">DEMARCAÇÃO DOS CANTEIROS</div>
+              </div>
+              <div class="photo-frame">
+                <img src="assets/real_photo_2.jpg" alt="Solo limpo e preparado para receber os tratamentos" />
+                <div class="photo-badge">TERRA REVOLVIDA E UNIFORME</div>
+              </div>
+            </div>
+
+            <div>
+              <div class="eyebrow-tag">
+                <span class="eyebrow-dot"></span>
+                <span>04 • E.E. FREI EGÍDIO PARISI (UBERLÂNDIA - MG)</span>
+              </div>
+              <h2 class="title-xl">NOSSO <span class="accent-green">SOLO</span></h2>
+
+              <div class="s6-quote-box">
+                <p>
+                  “Limpo, cuidado e pronto para ser testemunha de algo <span class="accent-green">sustentável</span>.”
+                </p>
+              </div>
+
+              <div class="s6-metrics">
+                <div class="s6-metric-pill">
+                  <strong>80 m²</strong>
+                  <span>Área Experimental</span>
+                </div>
+                <div class="s6-metric-pill">
+                  <strong>30 DIAS</strong>
+                  <span>Irrigação Pré-Plantio</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =================================================================
+           SLIDE 07: TRANSIÇÃO - APLICAÇÃO NA PLANTAÇÃO DE MILHO
+           ================================================================= -->
+      <section class="slide" data-slide="7">
+        <div class="s7-bg">
+          <img src="../assets/images/milho-solo-biochar.jpg" alt="Plantação de milho em solo com biochar" />
+        </div>
+        <div class="s7-overlay"></div>
+
+        <header class="slide-topbar">
+          <div class="brand-bar">
+            <img src="../logo_final/estrela_urbana_simbolo_fundo_escuro.svg" alt="Estrela Urbana" class="brand-logo" />
+            <span class="brand-bar-title">ESTRELA URBANA</span>
+            <span class="brand-bar-sub">DO LABORATÓRIO AO CAMPO</span>
+          </div>
+          <div class="slide-hud-pill">
+            <span class="hud-step-num">07/12</span>
+            <span class="hud-step-label">FASE AGRONÔMICA</span>
+          </div>
+        </header>
+
+        <div class="slide-body">
+          <div class="s7-content">
+            <div class="eyebrow-tag">
+              <span class="eyebrow-dot"></span>
+              <span>A SEGUIR • DADOS DE APLICAÇÃO EM CAMPO</span>
+            </div>
+
+            <h2 class="title-xl" style="font-size:90px;">
+              DO BIOCARVÃO AO SOLO<br />DA <span class="accent-gold">PLANTAÇÃO DE MILHO</span>
+            </h2>
+
+            <p class="subtitle-lg" style="max-width:1180px;font-size:40px;">
+              Como testamos diferentes quantidades e formas de aplicar o biochar na cultura de <strong class="accent-green"><em>Zea mays L.</em></strong>:
+            </p>
+
+            <div class="s7-pills">
+              <div class="s7-pill">
+                <strong>ITAPUÃ (ISLA)</strong>
+                <span>Milho Doce Híbrido</span>
+              </div>
+              <div class="s7-pill">
+                <strong>2 SEMENTES</strong>
+                <span>Por Cova + Desbaste</span>
+              </div>
+              <div class="s7-pill">
+                <strong>0,30 METRO</strong>
+                <span>Espaçamento entre Plantas</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =================================================================
+           SLIDE 08: DADOS - OS 5 TRATAMENTOS (CARDS VISUAIS GIGANTES)
+           ================================================================= -->
+      <section class="slide" data-slide="8">
+        <div class="bg-glow"></div>
+        <header class="slide-topbar">
+          <div class="brand-bar">
+            <img src="../logo_final/estrela_urbana_simbolo_fundo_escuro.svg" alt="Estrela Urbana" class="brand-logo" />
+            <span class="brand-bar-title">ESTRELA URBANA</span>
+            <span class="brand-bar-sub">DOSES E FORMAS DE APLICAÇÃO</span>
+          </div>
+          <div class="slide-hud-pill">
+            <span class="hud-step-num">08/12</span>
+            <span class="hud-step-label">DADOS DOS TRATAMENTOS</span>
+          </div>
+        </header>
+
+        <div class="slide-body">
+          <div style="display:flex;align-items:flex-end;justify-content:space-between;">
+            <div>
+              <div class="eyebrow-tag">
+                <span class="eyebrow-dot"></span>
+                <span>05 • DELINEAMENTO EXPERIMENTAL</span>
+              </div>
+              <h2 class="title-lg">DADOS: <span class="accent-green">OS 5 TRATAMENTOS</span></h2>
+            </div>
+            <div style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:26px;color:var(--gold-corn);background:rgba(242,201,76,0.14);border:2px solid var(--gold-corn);padding:14px 28px;border-radius:16px;">
+              EQUIVALÊNCIA NO CAMPO: 5 t/ha (500 g/m²) E 10 t/ha (1.000 g/m²)
+            </div>
+          </div>
+
+          <div class="s8-cards">
+            <!-- T1 -->
+            <div class="treat-card">
+              <span class="treat-code">T1</span>
+              <div class="treat-dose-block">
+                <div class="treat-dose">500</div>
+                <div class="treat-unit">gramas / m²</div>
+                <span class="treat-ha">Dose: 5 t/ha</span>
+              </div>
+              <div class="treat-mode">
+                <div class="treat-mode-title">EM SUPERFÍCIE</div>
+                <div class="treat-mode-sub">Aplicado a Lanço</div>
+              </div>
+            </div>
+
+            <!-- T2 -->
+            <div class="treat-card treat-inc">
+              <span class="treat-code">T2</span>
+              <div class="treat-dose-block">
+                <div class="treat-dose">500</div>
+                <div class="treat-unit">gramas / m²</div>
+                <span class="treat-ha">Dose: 5 t/ha</span>
+              </div>
+              <div class="treat-mode">
+                <div class="treat-mode-title">INCORPORADO</div>
+                <div class="treat-mode-sub">Misturado (0–20 cm)</div>
+              </div>
+            </div>
+
+            <!-- T3 -->
+            <div class="treat-card">
+              <span class="treat-code">T3</span>
+              <div class="treat-dose-block">
+                <div class="treat-dose">1.000</div>
+                <div class="treat-unit">gramas / m²</div>
+                <span class="treat-ha">Dose: 10 t/ha</span>
+              </div>
+              <div class="treat-mode">
+                <div class="treat-mode-title">EM SUPERFÍCIE</div>
+                <div class="treat-mode-sub">Aplicado a Lanço</div>
+              </div>
+            </div>
+
+            <!-- T4 -->
+            <div class="treat-card treat-inc">
+              <span class="treat-code">T4</span>
+              <div class="treat-dose-block">
+                <div class="treat-dose">1.000</div>
+                <div class="treat-unit">gramas / m²</div>
+                <span class="treat-ha">Dose: 10 t/ha</span>
+              </div>
+              <div class="treat-mode">
+                <div class="treat-mode-title">INCORPORADO</div>
+                <div class="treat-mode-sub">Misturado (0–20 cm)</div>
+              </div>
+            </div>
+
+            <!-- T5 -->
+            <div class="treat-card treat-ctrl">
+              <span class="treat-code">T5</span>
+              <div class="treat-dose-block">
+                <div class="treat-dose">0</div>
+                <div class="treat-unit">gramas / m²</div>
+                <span class="treat-ha">Sem Biochar</span>
+              </div>
+              <div class="treat-mode">
+                <div class="treat-mode-title">TESTEMUNHA</div>
+                <div class="treat-mode-sub">Parcela Controle</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =================================================================
+           SLIDE 09: COMO APLICAMOS? SUPERFÍCIE VS INCORPORADO
+           ================================================================= -->
+      <section class="slide" data-slide="9">
+        <div class="bg-glow"></div>
+        <header class="slide-topbar">
+          <div class="brand-bar">
+            <img src="../logo_final/estrela_urbana_simbolo_fundo_escuro.svg" alt="Estrela Urbana" class="brand-logo" />
+            <span class="brand-bar-title">ESTRELA URBANA</span>
+            <span class="brand-bar-sub">MODALIDADES DE MANEJO</span>
+          </div>
+          <div class="slide-hud-pill">
+            <span class="hud-step-num">09/12</span>
+            <span class="hud-step-label">MODO DE APLICAÇÃO</span>
+          </div>
+        </header>
+
+        <div class="slide-body">
+          <div>
+            <div class="eyebrow-tag">
+              <span class="eyebrow-dot"></span>
+              <span>QUAL A MELHOR FORMA DE USAR NO CAMPO?</span>
+            </div>
+            <h2 class="title-lg">DUAS FORMAS DE <span class="accent-green">APLICAR NO SOLO</span></h2>
+          </div>
+
+          <div class="s9-compare">
+            <!-- Superfície -->
+            <div class="mode-panel">
+              <div>
+                <div style="display:flex;justify-content:space-between;align-items:center;">
+                  <span style="font-family:'Montserrat',sans-serif;font-weight:900;font-size:44px;color:var(--green-neon);">1. EM SUPERFÍCIE (A LANÇO)</span>
+                  <span style="background:var(--green-neon);color:#0b0d0c;font-family:'Montserrat',sans-serif;font-weight:900;font-size:26px;padding:10px 22px;border-radius:14px;">T1 e T3</span>
+                </div>
+                <div class="mode-diagram">
+                  <div class="soil-layer-top">CAMADA DE BIOCHAR POR CIMA DA TERRA</div>
+                  <div class="soil-layer-earth">SOLO REVOLVIDO (0 A 20 CM)</div>
+                </div>
+              </div>
+              <p style="font-size:32px;font-weight:700;line-height:1.3;color:var(--white);">
+                Espalhado sobre a terra pronta: reduz a evaporação da água e protege a superfície do canteiro.
+              </p>
+            </div>
+
+            <!-- Incorporado -->
+            <div class="mode-panel mode-inc">
+              <div>
+                <div style="display:flex;justify-content:space-between;align-items:center;">
+                  <span style="font-family:'Montserrat',sans-serif;font-weight:900;font-size:44px;color:var(--gold-corn);">2. INCORPORADO (0–20 cm)</span>
+                  <span style="background:var(--gold-corn);color:#0b0d0c;font-family:'Montserrat',sans-serif;font-weight:900;font-size:26px;padding:10px 22px;border-radius:14px;">T2 e T4</span>
+                </div>
+                <div class="mode-diagram">
+                  <div class="soil-layer-mixed">
+                    <div class="soil-mixed-pill">BIOCHAR MISTURADO NA ZONA DAS RAÍZES (0–20 CM)</div>
+                  </div>
+                </div>
+              </div>
+              <p style="font-size:32px;font-weight:700;line-height:1.3;color:var(--white);">
+                Misturado dentro da terra: fica em contato direto com as raízes do milho, soltando o solo e retendo nutrientes.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =================================================================
+           SLIDE 10: MAPA DO CAMPO - DELINEAMENTO DBC 5x4 (20 PARCELAS)
+           ================================================================= -->
+      <section class="slide" data-slide="10">
+        <div class="bg-glow"></div>
+        <header class="slide-topbar">
+          <div class="brand-bar">
+            <img src="../logo_final/estrela_urbana_simbolo_fundo_escuro.svg" alt="Estrela Urbana" class="brand-logo" />
+            <span class="brand-bar-title">ESTRELA URBANA</span>
+            <span class="brand-bar-sub">RIGOR CIENTÍFICO EM CAMPO</span>
+          </div>
+          <div class="slide-hud-pill">
+            <span class="hud-step-num">10/12</span>
+            <span class="hud-step-label">MAPA DBC 5×4</span>
+          </div>
+        </header>
+
+        <div class="slide-body">
+          <div class="s10-grid">
+            <div class="dbc-board">
+              <div>
+                <div class="eyebrow-tag">
+                  <span class="eyebrow-dot"></span>
+                  <span>BLOCOS CASUALIZADOS SORTEADOS NO RSTUDIO</span>
+                </div>
+                <h2 class="title-lg" style="font-size:58px;">20 PARCELAS <span class="accent-green">(DBC 5×4)</span></h2>
+              </div>
+
+              <div class="dbc-rows">
+                <div class="dbc-row">
+                  <span class="dbc-bloco-name">BLOCO I</span>
+                  <div class="dbc-cell cell-ctrl"><strong>T5</strong><span>Controle</span></div>
+                  <div class="dbc-cell cell-inc"><strong>T2</strong><span>500 Inc</span></div>
+                  <div class="dbc-cell cell-inc"><strong>T4</strong><span>1000 Inc</span></div>
+                  <div class="dbc-cell cell-sup"><strong>T1</strong><span>500 Sup</span></div>
+                  <div class="dbc-cell cell-sup"><strong>T3</strong><span>1000 Sup</span></div>
+                </div>
+                <div class="dbc-row">
+                  <span class="dbc-bloco-name">BLOCO II</span>
+                  <div class="dbc-cell cell-sup"><strong>T3</strong><span>1000 Sup</span></div>
+                  <div class="dbc-cell cell-ctrl"><strong>T5</strong><span>Controle</span></div>
+                  <div class="dbc-cell cell-sup"><strong>T1</strong><span>500 Sup</span></div>
+                  <div class="dbc-cell cell-inc"><strong>T4</strong><span>1000 Inc</span></div>
+                  <div class="dbc-cell cell-inc"><strong>T2</strong><span>500 Inc</span></div>
+                </div>
+                <div class="dbc-row">
+                  <span class="dbc-bloco-name">BLOCO III</span>
+                  <div class="dbc-cell cell-sup"><strong>T1</strong><span>500 Sup</span></div>
+                  <div class="dbc-cell cell-inc"><strong>T4</strong><span>1000 Inc</span></div>
+                  <div class="dbc-cell cell-inc"><strong>T2</strong><span>500 Inc</span></div>
+                  <div class="dbc-cell cell-sup"><strong>T3</strong><span>1000 Sup</span></div>
+                  <div class="dbc-cell cell-ctrl"><strong>T5</strong><span>Controle</span></div>
+                </div>
+                <div class="dbc-row">
+                  <span class="dbc-bloco-name">BLOCO IV</span>
+                  <div class="dbc-cell cell-inc"><strong>T4</strong><span>1000 Inc</span></div>
+                  <div class="dbc-cell cell-sup"><strong>T1</strong><span>500 Sup</span></div>
+                  <div class="dbc-cell cell-ctrl"><strong>T5</strong><span>Controle</span></div>
+                  <div class="dbc-cell cell-inc"><strong>T2</strong><span>500 Inc</span></div>
+                  <div class="dbc-cell cell-sup"><strong>T3</strong><span>1000 Sup</span></div>
+                </div>
+              </div>
+
+              <div style="display:flex;gap:20px;justify-content:space-between;background:#0e1411;padding:18px 26px;border-radius:16px;border:2px solid rgba(255,255,255,0.15);font-family:'Montserrat',sans-serif;font-weight:800;font-size:24px;">
+                <span style="color:var(--green-neon);">■ CADA PARCELA: 2 × 2 m</span>
+                <span style="color:var(--gold-corn);">■ ENTRE PARCELAS: 0,5 m</span>
+                <span style="color:#ffffff;">■ ENTRE BLOCOS: 1,0 m</span>
+              </div>
+            </div>
+
+            <div class="photo-frame">
+              <img src="../frame/frame_715.jpg" alt="Vista das 20 parcelas experimentais em campo" />
+              <div class="photo-badge">CONTRASTE REAL DOS TRATAMENTOS EM CAMPO</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =================================================================
+           SLIDE 11: O QUE AVALIAMOS NO MILHO? (ATRIBUTOS + ESTATÍSTICA)
+           ================================================================= -->
+      <section class="slide" data-slide="11">
+        <div class="bg-glow"></div>
+        <header class="slide-topbar">
+          <div class="brand-bar">
+            <img src="../logo_final/estrela_urbana_simbolo_fundo_escuro.svg" alt="Estrela Urbana" class="brand-logo" />
+            <span class="brand-bar-title">ESTRELA URBANA</span>
+            <span class="brand-bar-sub">RESULTADOS E ANÁLISE</span>
+          </div>
+          <div class="slide-hud-pill">
+            <span class="hud-step-num">11/12</span>
+            <span class="hud-step-label">AVALIAÇÃO DO MILHO</span>
+          </div>
+        </header>
+
+        <div class="slide-body">
+          <div class="s11-grid">
+            <div class="photo-frame">
+              <img src="../frame/frame_860.jpg" alt="Crescimento vigoroso do milho nas parcelas com biochar" />
+              <div class="photo-badge">MILHO DOCE (ZEA MAYS L.) EM DESENVOLVIMENTO</div>
+            </div>
+
+            <div style="display:flex;flex-direction:column;justify-content:space-between;">
+              <div>
+                <div class="eyebrow-tag">
+                  <span class="eyebrow-dot"></span>
+                  <span>06 • ATRIBUTOS AGRONÔMICOS OBSERVADOS</span>
+                </div>
+                <h2 class="title-lg" style="font-size:62px;">O QUE MEDIMOS <span class="accent-gold">NA PLANTA?</span></h2>
+              </div>
+
+              <div class="attr-grid">
+                <div class="attr-card">
+                  <div class="attr-emoji">🌽</div>
+                  <div class="attr-info">
+                    <h3>ESPIGAS</h3>
+                    <p>Quantidade e tamanho das espigas colhidas.</p>
+                  </div>
+                </div>
+
+                <div class="attr-card">
+                  <div class="attr-emoji">🌿</div>
+                  <div class="attr-info">
+                    <h3>RAÍZES</h3>
+                    <p>Comprimento radicular e absorção de água.</p>
+                  </div>
+                </div>
+
+                <div class="attr-card">
+                  <div class="attr-emoji">📏</div>
+                  <div class="attr-info">
+                    <h3>PARTE AÉREA</h3>
+                    <p>Altura total e vigor das folhas do milho.</p>
+                  </div>
+                </div>
+
+                <div class="attr-card">
+                  <div class="attr-emoji">⚖️</div>
+                  <div class="attr-info">
+                    <h3>COLMO &amp; MASSA</h3>
+                    <p>Diâmetro do caule, massa fresca e massa seca.</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="rstudio-bar">
+                <div>
+                  <div style="font-family:'Montserrat',sans-serif;font-weight:900;font-size:30px;color:#56ccf2;text-transform:uppercase;">
+                    VALIDAÇÃO ESTATÍSTICA CIENTÍFICA
+                  </div>
+                  <div style="font-size:27px;font-weight:700;color:var(--white);margin-top:4px;">
+                    Análise de Variância (<strong>ANOVA</strong>) + <strong>Teste de Dunnett (5%)</strong> contra a testemunha.
+                  </div>
+                </div>
+                <span class="rstudio-badge">RSTUDIO</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =================================================================
+           SLIDE 12: ENCERRAMENTO & CONVITE NO ESTANDE (FUNDO 16:9 MILHO)
+           ================================================================= -->
+      <section class="slide" data-slide="12">
+        <div class="s12-bg">
+          <img src="assets/milho_editorial_16x9.jpg" alt="Fundo plantação de milho e biochar 16:9" />
+        </div>
+
+        <div class="s12-content">
+          <div class="s12-hero-box">
+            <div style="display:flex;align-items:center;gap:30px;">
+              <img src="../logo_final/estrela_urbana_simbolo_fundo_escuro.svg" alt="Símbolo Estrela Urbana" style="width:118px;height:118px;" />
+              <div>
+                <div style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:24px;color:var(--green-neon);letter-spacing:0.12em;text-transform:uppercase;">
+                  XXXI CIÊNCIA VIVA • UBERLÂNDIA / MG • 2026
+                </div>
+                <h2 style="font-family:'Montserrat',sans-serif;font-weight:900;font-size:66px;line-height:1.04;color:var(--white);text-transform:uppercase;margin-top:6px;">
+                  ESTRELA <span class="accent-green">URBANA</span>
+                </h2>
+                <p style="font-size:32px;font-weight:700;color:var(--gold-corn);margin-top:6px;">
+                  Menos resíduo nos aterros • Mais água e carbono no solo • Mais alimento no campo
+                </p>
+              </div>
+            </div>
+            <img src="../camisa/logo_escola_bege.png" alt="Brasão Escola Estadual Frei Egídio Parisi" style="height:105px;object-fit:contain;background:#8b2d3b;border:2px solid var(--gold-straw);padding:12px 24px;border-radius:18px;box-shadow:0 10px 24px rgba(0,0,0,0.4);" />
+          </div>
+
+          <div class="s12-team-grid">
+            <div class="team-card">
+              <div style="font-family:'Montserrat',sans-serif;font-weight:900;font-size:26px;color:var(--green-neon);letter-spacing:0.08em;text-transform:uppercase;">
+                EQUIPE DE PESQUISA • E.E. FREI EGÍDIO PARISI
+              </div>
+              <div class="team-names">
+                <div>• Ana Clara Mendes Vieira</div>
+                <div>• Davi Cuevas de Queiroz</div>
+                <div>• Gustavo Antônio de Souza Pereira</div>
+              </div>
+              <div style="margin-top:18px;padding-top:16px;border-top:2px solid rgba(110,231,130,0.3);font-size:28px;font-weight:800;color:var(--gold-corn);">
+                Orientadora: Profa. Meirielly Maria Cardoso Santos
+              </div>
+            </div>
+
+            <div class="site-cta-card">
+              <div>
+                <div style="font-family:'Montserrat',sans-serif;font-weight:900;font-size:24px;color:var(--gold-corn);letter-spacing:0.1em;text-transform:uppercase;">
+                  EXPLORE NOSSO SITE INTERATIVO
+                </div>
+                <div style="font-family:'Montserrat',sans-serif;font-weight:900;font-size:31px;color:var(--white);margin-top:14px;line-height:1.15;white-space:nowrap;">
+                  estrela-urbana.vercel.app
+                </div>
+              </div>
+              <div style="background:rgba(11,13,12,0.85);border:2px solid var(--green-neon);padding:18px 24px;border-radius:16px;font-family:'Montserrat',sans-serif;font-weight:800;font-size:24px;color:var(--green-neon);text-align:center;text-transform:uppercase;">
+                OBRIGADO PELA VISITA AO NOSSO ESTANDE!
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <!-- Controles Flutuantes para Uso no Estande e no Site -->
+  <div class="deck-controls" aria-label="Controles da apresentação">
+    <a href="../" class="ctrl-btn" title="Voltar para o site Estrela Urbana">&larr; Site</a>
+    <button type="button" class="ctrl-btn" id="prevBtn" title="Slide Anterior (Seta Esquerda)">&larr; Anterior</button>
+    <span class="ctrl-counter" id="slideCounter">01 / 12</span>
+    <button type="button" class="ctrl-btn" id="nextBtn" title="Próximo Slide (Seta Direita)">Próximo &rarr;</button>
+    <button type="button" class="ctrl-btn" id="autoPlayBtn" title="Modo Estande (Troca automática a cada 8s)">Modo Estande: OFF</button>
+    <a href="Apresentacao_Estrela_Urbana_Ciencia_Viva.pdf" download class="ctrl-btn ctrl-gold" title="Baixar Apresentação em PDF">Baixar PDF</a>
+    <button type="button" class="ctrl-btn" id="fullscreenBtn" title="Tela Cheia (Tecla F)">Tela Cheia</button>
+  </div>
+
+  <script>
+    (function () {
+      const stage = document.getElementById('deckStage');
+      const slides = Array.from(document.querySelectorAll('.slide'));
+      const counter = document.getElementById('slideCounter');
+      const prevBtn = document.getElementById('prevBtn');
+      const nextBtn = document.getElementById('nextBtn');
+      const autoPlayBtn = document.getElementById('autoPlayBtn');
+      const fullscreenBtn = document.getElementById('fullscreenBtn');
+
+      let current = 0;
+      let autoTimer = null;
+      let touchStartX = null;
+
+      function fitStage() {
+        const scaleX = window.innerWidth / 1920;
+        const scaleY = window.innerHeight / 1080;
+        const scale = Math.min(scaleX, scaleY);
+        stage.style.transform = `scale(${scale})`;
+      }
+
+      function showSlide(index) {
+        current = (index + slides.length) % slides.length;
+        slides.forEach((s, i) => s.classList.toggle('is-active', i === current));
+        counter.textContent = `${String(current + 1).padStart(2, '0')} / ${String(slides.length).padStart(2, '0')}`;
+        if (history.replaceState) {
+          history.replaceState(null, '', `#slide-${current + 1}`);
+        } else {
+          window.location.hash = `slide-${current + 1}`;
+        }
+      }
+
+      function toggleAutoPlay() {
+        if (autoTimer) {
+          clearInterval(autoTimer);
+          autoTimer = null;
+          autoPlayBtn.classList.remove('is-playing');
+          autoPlayBtn.textContent = 'Modo Estande: OFF';
+        } else {
+          autoTimer = setInterval(() => showSlide(current + 1), 8000);
+          autoPlayBtn.classList.add('is-playing');
+          autoPlayBtn.textContent = 'Modo Estande: ON (8s)';
+        }
+      }
+
+      prevBtn.addEventListener('click', () => showSlide(current - 1));
+      nextBtn.addEventListener('click', () => showSlide(current + 1));
+      autoPlayBtn.addEventListener('click', toggleAutoPlay);
+      fullscreenBtn.addEventListener('click', () => {
+        if (!document.fullscreenElement) {
+          document.documentElement.requestFullscreen();
+        } else {
+          document.exitFullscreen();
+        }
+      });
+
+      window.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
+          e.preventDefault();
+          showSlide(current + 1);
+        } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+          e.preventDefault();
+          showSlide(current - 1);
+        } else if (e.key === 'f' || e.key === 'F') {
+          fullscreenBtn.click();
+        }
+      });
+
+      // Suporte a gesto de deslizar (swipe) no celular/tablet
+      window.addEventListener('touchstart', (e) => {
+        if (e.touches.length === 1) {
+          touchStartX = e.touches[0].clientX;
+        }
+      }, { passive: true });
+
+      window.addEventListener('touchend', (e) => {
+        if (touchStartX === null || e.changedTouches.length === 0) return;
+        const deltaX = e.changedTouches[0].clientX - touchStartX;
+        if (Math.abs(deltaX) > 50) {
+          if (deltaX < 0) showSlide(current + 1);
+          else showSlide(current - 1);
+        }
+        touchStartX = null;
+      }, { passive: true });
+
+      if (window.location.search.includes('clean=1')) {
+        document.querySelector('.deck-controls').style.display = 'none';
+      }
+      const hashMatch = window.location.hash.match(/slide-(\d+)/);
+      if (hashMatch) {
+        const idx = parseInt(hashMatch[1], 10) - 1;
+        if (idx >= 0 && idx < slides.length) current = idx;
+      }
+
+      window.addEventListener('resize', fitStage);
+      fitStage();
+      showSlide(current);
+    })();
+  </script>
+</body>
+</html>

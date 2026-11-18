@@ -1,0 +1,13 @@
+{
+  "cleanUrls": true,
+  "rewrites": [
+    {
+      "source": "/slides",
+      "destination": "/slides/index.html"
+    },
+    {
+      "source": "/slides/",
+      "destination": "/slides/index.html"
+    }
+  ]
+}
